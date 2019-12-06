@@ -1,5 +1,24 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<body>
+  <div class="layout-row layout-xs-column">
 
-{{outlet}}
+    <div class="flex">
+      <a href="overview"><img style=" margin-left: 50px;"src="assets/images/logo-black.png" alt="white-theme" width="188px" height="56px"></a>
+    </div>
+
+    <div class="flex">
+      {{#paper-button href="overview" raised=true primary=true}}Overview{{/paper-button}}
+      {{#paper-button href="incomes" }}Incomes{{/paper-button}}
+      {{#paper-button href="expenses" }}Expenses{{/paper-button}}
+      {{#paper-button href="settings" }}Settings{{/paper-button}}
+    </div>
+
+  </div>
+
+  {{outlet}}
+
+</body>
+
+
+<footer>
+  <p>Designed by @Alex</p>
+</footer>
