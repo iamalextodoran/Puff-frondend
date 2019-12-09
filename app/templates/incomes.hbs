@@ -13,15 +13,15 @@
 
       <div align="center">
         <p>Salary</p>
-        {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing='easeOut' trailColor='#BBEEE9' color = '#03DAC5' trailWidth= 4)}}
+        {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Free lanceing</p>
-        {{ember-progress-bar progress=0.2 options=(hash strokeWidth=4 duration=1000  easing='easeOut' trailColor='#BBEEE9' color = '#03DAC5' trailWidth= 4)}}
+        {{ember-progress-bar progress=0.2 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Scolarship</p>
-        {{ember-progress-bar progress=0.7 options=(hash strokeWidth=4 duration=1000  easing='easeOut' trailColor='#BBEEE9' color = '#03DAC5' trailWidth= 4)}}
+        {{ember-progress-bar progress=0.7 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="right">
         <h1 class="accentHeading">3600 lei</h1>
@@ -42,15 +42,28 @@
         {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
 
         {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
-        
+
         {{paper-input label="Category" type="text" value=category onChange=(action (mut category))}}
 
-        {{paper-input textarea=true block=true label="Description" passThru=(hash rows=5 maxRows=5) value=description onChange=(action (mut description))}}
-        
+        {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+
       </div>
 
-      {{#paper-button raised=true fab=true accent=true onClick=(action "targetButton")}}+{{/paper-button}}
-      
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addIncome")}}+{{/paper-button}}
+            
+      {{#if addIncomeToast}}
+        {{#paper-toast duration=3000 toastClass=md-warn capsule=true onClose=(action "closeAddToast") as |toast|}}
+          {{#toast.text}}Income succesfully added{{/toast.text}}
+          {{#paper-button accent=true onClick=(action "undoAddIncome")}}Undo{{/paper-button}}
+        {{/paper-toast}}
+      {{/if}}
+
+      {{#if undoAddIncomeToast}}
+        {{#paper-toast duration=3000 toastClass=md-warn capsule=true onClose=(action "closeUndoToast") as |toast|}}
+          {{#toast.text}}Last income deleted{{/toast.text}}
+        {{/paper-toast}}
+      {{/if}}
+
     </div>
   </div>
 </div>

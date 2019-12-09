@@ -2,14 +2,16 @@
   <div class="layout-row layout-xs-column">
 
     <div class="flex">
-      <a href="overview"><img style=" margin-left: 50px;"src="assets/images/logo-black.png" alt="white-theme" width="188px" height="56px"></a>
+      <a href="overview">
+        <img style=" margin-left: 50px" src="assets/images/logo-black.png" alt="white-theme" width="188px" height="56px">
+      </a>
     </div>
 
     <div class="flex">
-      {{#paper-button href="overview" raised=true primary=true}}Overview{{/paper-button}}
-      {{#paper-button href="incomes" }}Incomes{{/paper-button}}
-      {{#paper-button href="expenses" }}Expenses{{/paper-button}}
-      {{#paper-button href="settings" }}Settings{{/paper-button}}
+      {{#paper-button href="overview"}}Overview{{/paper-button}}
+      {{#paper-button href="incomes" primary=true}}Incomes{{/paper-button}}
+      {{#paper-button href="expenses" primary=true}}Expenses{{/paper-button}}
+      {{#paper-button href="settings" primary=true}}Settings{{/paper-button}}
     </div>
 
   </div>

@@ -7,7 +7,7 @@
 
 <div class="layout-row layout-xs-column">
   <div class="flex container">
- 
+
     <div class="card">
       <h3>Theme</h3>
 
@@ -49,12 +49,11 @@
 
 <div class="layout-row layout-xs-column">
   <div class="flex container">
- 
+
     <div class="card">
       <h3>Users</h3>
 
       {{#each users as |user|}}
-      {{paper-divider}}
         {{#paper-item class="md-3-line" onClick=(action "goToUser" item)}}
           <img src={{user.picture}} alt={{user.fullName}} class="md-avatar">
           <div class="md-list-item-text">

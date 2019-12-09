@@ -5,35 +5,62 @@ export default Controller.extend({
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
+
   priorityOptions: computed(function() {
     return {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
-        label: '# of Votes',
+
         data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132)',
-          'rgba(54, 162, 235)',
-          'rgba(255, 206, 86)',
-          'rgba(75, 192, 192)',
-          'rgba(153, 102, 255)',
-          'rgba(255, 159, 64)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
+        
+      }],
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
     }
   }),
 
+  createIncome: computed(function() {
+    var name = this.get('name');
+    var amount = this.get('amount');
+    var date = this.get('date');
+    var category = this.get('category');
+    var description = this.get('description');
+
+    var newIncome = this.store.createRecord('transaction',{
+      typeOfT: 'income',
+      name: name,
+      amount: amount,
+      date: new Date(date),
+      category: category,
+      description: description
+    });
+    return newIncome.save()
+  }),
+
   actions: {
-    targetButton: function() {
+    undoAddIncome() {
+      this.get('lastIncome.content').destroyRecord();
+      this.set('addIncomeToast', false);
+      this.set('undoAddIncomeToast', true);
+    },
+
+    addIncome: function() {
+      const income = this.get('createIncome');
+      this.set('lastIncome', income);
+      this.setProperties({
+        name: '',
+        amount: '',
+        date: '',
+        category: '',
+        description: ''
+      });
+    
+      this.set('addIncomeToast', true);
+    },
+    closeAddToast() {
+      this.set('addIncomeToast', false);
+
+    },
+    closeUndoToast(){
+      this.set('undoAddIncomeToast', false);
     }
   }
 }); 
