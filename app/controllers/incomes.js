@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
+import { sum } from '@ember/object/computed';
 
 export default Controller.extend({
   transactions: computed(function() {
@@ -9,9 +10,7 @@ export default Controller.extend({
   priorityOptions: computed(function() {
     return {
       datasets: [{
-
         data: [12, 19, 3, 5, 2, 3],
-        
       }],
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
     }
@@ -24,7 +23,7 @@ export default Controller.extend({
     var category = this.get('category');
     var description = this.get('description');
 
-    var newIncome = this.store.createRecord('transaction',{
+    var newIncome = this.store.createRecord('transaction', {
       typeOfT: 'income',
       name: name,
       amount: amount,
@@ -35,6 +34,11 @@ export default Controller.extend({
     return newIncome.save()
   }),
 
+  // eslint-disable-next-line ember/use-brace-expansion
+  incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
+    return this.get('transactions').mapBy('amount').reduce((a, b) => a + b, 0)
+  }),
+  
   actions: {
     undoAddIncome() {
       this.get('lastIncome.content').destroyRecord();
@@ -55,6 +59,7 @@ export default Controller.extend({
     
       this.set('addIncomeToast', true);
     },
+
     closeAddToast() {
       this.set('addIncomeToast', false);
 

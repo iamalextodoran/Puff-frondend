@@ -17,7 +17,7 @@ export default Controller.extend({
     goToUser: function() {
     },
     darkModeToggle: function() {
-      this.set('darkModeToggle', true);
+      this.toggleProperty('darkModeToggle');
     }
   }
 });
