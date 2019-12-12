@@ -1,8 +1,15 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
-import { sum } from '@ember/object/computed';
 
 export default Controller.extend({
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
+  categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+
+  date: computed(function() {
+    let today = new Date();
+    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  }),
+
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
@@ -36,7 +43,7 @@ export default Controller.extend({
 
   // eslint-disable-next-line ember/use-brace-expansion
   incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').mapBy('amount').reduce((a, b) => a + b, 0)
+    return this.get('transactions').filterBy('typeOfT','income').mapBy('amount').reduce((a, b) => a + b, 0)
   }),
   
   actions: {

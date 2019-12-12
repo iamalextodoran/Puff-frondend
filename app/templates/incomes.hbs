@@ -16,7 +16,7 @@
         {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
-        <p>Free lanceing</p>
+        <p>Freelancer</p>
         {{ember-progress-bar progress=0.2 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
@@ -26,7 +26,6 @@
       <div align="right">
         <h1 class="accentHeading">{{incomeSum}} lei</h1>
         <p>this month</p>
-
       </div>
     </div>
   </div>
@@ -35,32 +34,34 @@
     <div class="card small">
       <h3>Add new income source</h3>
       <p>Pump those numbers up</p>
-
-      <div class="layout layout-sm-column">
-
+      <div>
         {{paper-input label="Name" placeholder="Enter name" value=name onChange=(action (mut name))}}
-
-        {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
-
-        {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
-
-        {{paper-input label="Category" type="text" value=category onChange=(action (mut category))}}
-
-        {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
-
       </div>
+      {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+      {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+      {{!-- {{paper-input label="Category" type="text" value=category onChange=(action (mut category))}} --}}
+      {{#paper-select
+        disabled=disableSelect
+        label="Category"
+        options=categoryOptions
+        selected=category
+        onChange=(action (mut category))
+        as |categoryOption|}}
+        {{categoryOption}}
+      {{/paper-select}}
+      {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
 
       {{#paper-button raised=true fab=true accent=true onClick=(action "addIncome")}}+{{/paper-button}}
             
       {{#if addIncomeToast}}
-        {{#paper-toast duration=3000 toastClass=md-warn capsule=true onClose=(action "closeAddToast") as |toast|}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}
           {{#toast.text}}Income succesfully added{{/toast.text}}
           {{#paper-button accent=true onClick=(action "undoAddIncome")}}Undo{{/paper-button}}
         {{/paper-toast}}
       {{/if}}
 
       {{#if undoAddIncomeToast}}
-        {{#paper-toast duration=3000 toastClass=md-warn capsule=true onClose=(action "closeUndoToast") as |toast|}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeUndoToast") as |toast|}}
           {{#toast.text}}Last income deleted{{/toast.text}}
         {{/paper-toast}}
       {{/if}}
