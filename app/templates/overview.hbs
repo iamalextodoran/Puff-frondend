@@ -48,9 +48,14 @@
       <h3>Top spendings</h3>
       <p>Opreste-te animalule</p>
 
-      {{expenses.category}}
-      {{foodTest}}
-      {{expData.foodMax}}
+      {{#each expensesSorted as |expense|}}
+        <div>
+
+          <h1>{{expense.category}}</h1>
+          <p>{{expense.name}} {{expense.amount}}</p>
+
+        </div>
+      {{/each}}
 
     </div>
 

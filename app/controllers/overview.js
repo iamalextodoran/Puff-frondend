@@ -10,7 +10,15 @@ export default Controller.extend({
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense')
   }),
-  
+
+    // eslint-disable-next-line ember/use-brace-expansion
+  expensesSorted: computed('transactions.length', 'transactions.@each.amount', function() {
+    // let a = this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
+    // return a.objectAt('a.length'-'1')
+    // !!! partea de mai sus vreau sa returneze ultimul record, deocamdata e array de obiecte
+    return this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
+  }),
+
   // eslint-disable-next-line ember/use-brace-expansion
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
@@ -48,6 +56,8 @@ export default Controller.extend({
       medical: this.get('expenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
     }
   }),
+
+
 
   priorityOptions: computed('expData', function() {
     return {
