@@ -2,6 +2,7 @@
   <div class="flex container">
     <h1>Incomes</h1>
     <p>You are doing good this month. You still have 60% avalable</p>
+    <p>-------functie pentru procent intre castig si cheltuieli pe luna respectiva</p>
   </div>
 </div>
 
@@ -10,7 +11,7 @@
     <div class="card">
       <h3>My income sources</h3>
       <p>Income sources and timestamps</p>
-
+      <p>---- functie pentru scalare si trebuie sa iau datele sortate dupa cele trei categorii prestabilite, barul reprez procentul din suma facuta luna aceasta</p>
       <div align="center">
         <p>Work</p>
         {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
@@ -48,7 +49,7 @@
           {{categoryOption}}
         {{/paper-select}}
       </div>
-      {{#paper-button raised=true fab=true accent=true onClick=(action "addIncome")}}+{{/paper-button}}
+      {{#paper-button raised=true fab=true icon=true accent=true onClick=(action "addIncome")}}{{paper-icon "add"}}{{/paper-button}}
             
       {{#if addIncomeToast}}
         {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}

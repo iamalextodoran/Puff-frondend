@@ -16,6 +16,7 @@
       <div class="layout-row layout-align-space-between">
         <div>
           <p>Sort them out by</p>
+          <p>--------implementare cu chips?</p>
           {{#paper-button primary=true onClick=(action "targetButton")}}Day{{/paper-button}}
           {{#paper-button accent=true onClick=(action "targetButton")}}Week{{/paper-button}}
           {{#paper-button primary=true onClick=(action "targetButton")}}Month{{/paper-button}}
@@ -48,7 +49,7 @@
         {{/paper-select}}
         {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
       </div>
-      {{#paper-button raised=true fab=true accent=true onClick=(action "addExpense")}}+{{/paper-button}}
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addExpense")}}{{paper-icon "add"}}{{/paper-button}}
             
       {{#if addExpenseToast}}
         {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}
@@ -59,7 +60,7 @@
 
       {{#if undoAddExpenseToast}}
         {{#paper-toast duration=3000 capsule=true onClose=(action "closeUndoToast") as |toast|}}
-          {{#toast.text}}Last Expense deleted{{/toast.text}}
+          {{#toast.text}}Last expense deleted{{/toast.text}}
         {{/paper-toast}}
       {{/if}}
     </div>
