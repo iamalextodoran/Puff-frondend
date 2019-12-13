@@ -1,0 +1,71 @@
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+    <h1>Settings</h1>
+    <p>Tweak'um up boii</p>
+  </div>
+</div>
+
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+
+    <div class="card">
+      <h3>Theme</h3>
+
+      {{#paper-item as |controls|}}
+        {{paper-icon "brightness-2"}}
+        <p>Darkmode</p>
+        <div class="md-secondary-container">
+          {{controls.switch secondary=false value=darkModeToggle onChange=(action (mut darkModeToggle))}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item as |controls|}}
+        {{paper-icon "landscape"}}
+        <p>Accent color</p>
+        <div class="md-secondary-container">
+          {{controls.switch secondary=true value=accentColorToggle onChange=(action (mut accentColorToggle))}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item as |controls|}}
+        {{paper-icon "call-split"}}
+        <p>Carry over</p>
+        <div class="md-secondary-container">
+          {{controls.switch secondary=true value=carryOverEnabled onChange=(action (mut carryOverEnabled))}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item as |controls|}}
+        {{paper-icon "attach-money"}}
+        <p>Coin</p>
+        <div class="md-secondary-container">
+          {{controls.switch secondary=true value=currencyToggle onChange=(action (mut currencyToggle))}}
+        </div>
+      {{/paper-item}}
+
+    </div>
+  </div>
+</div>
+
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+
+    <div class="card">
+      <h3>Users</h3>
+      <p>------schimb pe dropdown?</p>
+
+      {{#each users as |user|}}
+        {{#paper-item class="md-3-line" onClick=(action "goToUser" item)}}
+          <img src={{user.picture}} alt={{user.fullName}} class="md-avatar">
+          <div class="md-list-item-text">
+            <h3>{{user.fullName}}</h3>
+            <h4>{{user.email}}</h4>
+            <p>Some notes here.</p>
+          </div>
+        {{/paper-item}}
+      {{/each}}
+
+    </div>
+
+  </div>
+</div>

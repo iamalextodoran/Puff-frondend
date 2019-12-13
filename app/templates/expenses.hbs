@@ -1,0 +1,70 @@
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+    <h1>Expenses</h1>
+    <p>You are doing good this month. You still have 60% avalable</p>
+  </div>
+
+</div>
+
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+    <div class="card">
+      <h3>My expenses</h3>
+      <p>Income sources and timestamps</p>
+      {{ember-chart type="doughnut" data=priorityOptions}}
+
+      <div class="layout-row layout-align-space-between">
+        <div>
+          <p>Sort them out by</p>
+          <p>--------implementare cu chips?</p>
+          {{#paper-button primary=true onClick=(action "targetButton")}}Day{{/paper-button}}
+          {{#paper-button accent=true onClick=(action "targetButton")}}Week{{/paper-button}}
+          {{#paper-button primary=true onClick=(action "targetButton")}}Month{{/paper-button}}
+          {{#paper-button primary=true onClick=(action "targetButton")}}Year{{/paper-button}}
+
+        </div>
+        <div>
+          <h1 class="red">{{expenseSum}} lei</h1>
+          <p align="right">spent</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex container">
+    <div class="card small">
+      <h3>Add new expense</h3>
+      <p>Pump those numbers up</p>
+      <div class="layout layout-sm-column">
+        {{paper-input label="Name" value=name onChange=(action (mut name))}}
+        {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+        {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+        {{#paper-select
+          disabled=disableSelect
+          label="Category"
+          options=categoryOptions
+          selected=category
+          onChange=(action (mut category))
+          as |categoryOption|}}
+          {{categoryOption}}
+        {{/paper-select}}
+        {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+      </div>
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addExpense")}}{{paper-icon "add"}}{{/paper-button}}
+            
+      {{#if addExpenseToast}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}
+          {{#toast.text}}Expense succesfully added{{/toast.text}}
+          {{#paper-button accent=true onClick=(action "undoAddExpense")}}Undo{{/paper-button}}
+        {{/paper-toast}}
+      {{/if}}
+
+      {{#if undoAddExpenseToast}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeUndoToast") as |toast|}}
+          {{#toast.text}}Last expense deleted{{/toast.text}}
+        {{/paper-toast}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{outlet}}

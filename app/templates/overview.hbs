@@ -1,0 +1,146 @@
+<div class="layout-row layout-xs-column">
+  <div class="flex-50">
+
+    <div class="layout-row  layout-align-space-between-start container">
+      <div>
+        <h1>Hey, Alex</h1>
+        <p>You doing good</p>
+        <p>------adaugare nume in functie de user</p>
+        <p>------adaugare functie pentru mesaj custom in functie de suma disponibila in cont (rosu, galben si verde)</p>
+      </div>
+      <div>
+        <h1 class="{{if this.isBad "red" "green"}}">{{expenseSum}} lei</h1>
+        <p align="right">avalable</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="layout-row layout-xs-column">
+
+  <div class="flex container">
+
+    <div class="card">
+      <h3>Spending categories</h3>
+      <p>this month</p>
+      {{ember-chart type="doughnut" data=priorityOptions}}
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addQuickExpense")}}{{paper-icon "add"}}{{/paper-button}}
+
+      {{#if showPromptAddExpense}}
+        {{#paper-dialog fullscreen=true escapeToClose=true clickOutsideToClose=true onClose=(action "closePromptDialog") origin=dialogOrigin}}
+
+          {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
+            <div class="layout layout-sm-column">
+              {{paper-input label="Name" value=name onChange=(action (mut name))}}
+              {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+              {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+              {{#paper-select
+                disabled=disableSelect
+                label="Category"
+                options=categoryOptions
+                selected=category
+                onChange=(action (mut category))
+                as |categoryOption|}}
+                {{categoryOption}}
+              {{/paper-select}}
+              {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+            </div>
+          {{/paper-dialog-content}}
+
+          {{#paper-dialog-actions class="layout-row"}}
+            {{#paper-button onClick=(action "closePromptDialog")}}{{paper-icon "cancel"}} Cancel{{/paper-button}}
+            {{#paper-button onClick=(action "addExpense")}}{{paper-icon "add"}} Add expense{{/paper-button}}
+          {{/paper-dialog-actions}}
+
+        {{/paper-dialog}}
+      {{/if}}
+    </div>
+
+  </div>
+  <div class="flex container">
+
+    <div class="card small">
+      <div>
+        <h3>Savings</h3>
+        <p>Save smoth</p>
+      </div>
+      <div align="center">
+        <p>Vacation</p>
+        {{ember-progress-bar progress=barValue.saving options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+      </div>
+      <div align="center">
+        <p>Emergency ----- must added a function to scale down the numbers</p>
+        {{ember-progress-bar progress=barValue.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+      </div>
+    </div>
+
+    <div class="card small">
+      <h3>Top spendings</h3>
+      <p>Opreste-te animalule</p>
+      <p>------- despartite in 2 sau 3 coloane, adaugare link spre view cu mai multe detalii si button edit si delete</p>
+      <p>------ transformare in low case toate sau toate sa inceapa cu litera mare si restul mici</p>
+
+      <div class="layout-row flex">
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
+            {{!-- size de 30 --}}
+            <div class="md-list-item-text">
+              <h3>{{foodSorted.name}}</h3>
+              <p>{{foodSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "directions_car" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{transportationSorted.name}}</h3>
+              <p>{{transportationSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+        </div>
+      
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "flight" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{travelSorted.name}}</h3>
+              <p>{{travelSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "payment" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{utilitiesSorted.name}}</h3>
+              <p>{{utilitiesSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+        </div>
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "local_hospital" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{medicalSorted.name}}</h3>
+              <p>{{medicalSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+            {{paper-icon "eco" class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{savingsSorted.name}}</h3>
+              <p>{{savingsSorted.amount}}</p>
+            </div>
+          {{/paper-item}}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{outlet}}

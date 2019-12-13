@@ -1,0 +1,26 @@
+<body>
+  <div class="layout-row layout-xs-column">
+
+    <div class="flex">
+      <a href="overview">
+        <img id="mode" src="assets/images/logo-black.png" alt="white-theme" width="188px" height="56px">
+      </a>
+    </div>
+
+    <div class="flex">
+      <div class="layout-row layout-align-end-center">
+      {{#paper-button href="overview" primary=true}}Overview{{/paper-button}}
+      {{#paper-button href="incomes"}}Incomes{{/paper-button}}
+      {{#paper-button href="expenses"}}Expenses{{/paper-button}}
+      {{#paper-button href="settings"}}Settings{{/paper-button}}
+      </div>
+    </div>
+
+  </div>
+  {{outlet}}
+
+</body>
+
+<footer>
+  <p>Designed by @Alex</p>
+</footer>
