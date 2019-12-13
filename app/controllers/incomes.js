@@ -3,24 +3,15 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
-  categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
-
-  date: computed(function() {
-    let today = new Date();
-    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  }),
-
+  categoryOptionsForIncome: ['work', 'scolarship', 'freelance'],
+  
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
 
-  priorityOptions: computed(function() {
-    return {
-      datasets: [{
-        data: [12, 19, 3, 5, 2, 3],
-      }],
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
-    }
+  date: computed(function() {
+    let today = new Date();
+    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   }),
 
   createIncome: computed(function() {
@@ -28,7 +19,6 @@ export default Controller.extend({
     var amount = this.get('amount');
     var date = this.get('date');
     var category = this.get('category');
-    var description = this.get('description');
 
     var newIncome = this.store.createRecord('transaction', {
       typeOfT: 'income',
@@ -36,7 +26,6 @@ export default Controller.extend({
       amount: amount,
       date: new Date(date),
       category: category,
-      description: description
     });
     return newIncome.save()
   }),
@@ -59,9 +48,7 @@ export default Controller.extend({
       this.setProperties({
         name: '',
         amount: '',
-        date: '',
         category: '',
-        description: ''
       });
     
       this.set('addIncomeToast', true);

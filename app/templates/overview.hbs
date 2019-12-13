@@ -14,14 +14,44 @@
 
   </div>
 </div>
-<div height="500px" class="layout-row layout-xs-column">
+<div class="layout-row layout-xs-column">
 
   <div class="flex container">
+
     <div class="card">
       <h3>Spending categories</h3>
       <p>this month</p>
       {{ember-chart type="doughnut" data=priorityOptions}}
-      {{#paper-button raised=true fab=true accent=true onClick=(action "targetButton")}}+{{/paper-button}}
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addQuickExpense")}}+{{/paper-button}}
+
+      {{#if showPromptAddExpense}}
+        {{#paper-dialog fullscreen=true onClose=(action "closePromptDialog") origin=dialogOrigin}}
+
+          {{#paper-dialog-content}}
+            <div class="layout layout-sm-column">
+              {{paper-input label="Name" value=name onChange=(action (mut name))}}
+              {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+              {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+              {{#paper-select
+                disabled=disableSelect
+                label="Category"
+                options=categoryOptions
+                selected=category
+                onChange=(action (mut category))
+                as |categoryOption|}}
+                {{categoryOption}}
+              {{/paper-select}}
+              {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+            </div>
+          {{/paper-dialog-content}}
+
+          {{#paper-dialog-actions class="layout-row"}}
+            {{#paper-button primary=true onClick=(action "closePromptDialog")}}Cancel{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "addExpense")}}Add expense{{/paper-button}}
+          {{/paper-dialog-actions}}
+
+        {{/paper-dialog}}
+      {{/if}}
     </div>
 
   </div>
@@ -34,12 +64,10 @@
       </div>
       <div align="center">
         <p>Vacation</p>
-        {{travelSum.sum}}
         {{ember-progress-bar progress=travelSum.progress options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Emergency</p>
-        {{savingSum.sum}}
         {{ember-progress-bar progress=savingSum.progress options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
     </div>
@@ -48,14 +76,13 @@
       <h3>Top spendings</h3>
       <p>Opreste-te animalule</p>
 
-      {{#each expensesSorted as |expense|}}
-        <div>
-
-          <h1>{{expense.category}}</h1>
-          <p>{{expense.name}} {{expense.amount}}</p>
-
+      {{#paper-item class="md-2-line"}}
+        {{paper-icon "add" class="md-avatar-icon"}}
+        <div class="md-list-item-text">
+          <h3>{{foodSorted.name}}</h3>
+          <p>{{foodSorted.amount}}</p>
         </div>
-      {{/each}}
+      {{/paper-item}}
 
     </div>
 

@@ -23,7 +23,7 @@
 
         </div>
         <div>
-          <h1 class="red">6230.60 lei</h1>
+          <h1 class="red">{{expenseSum}} lei</h1>
           <p align="right">spent</p>
         </div>
       </div>
@@ -33,6 +33,35 @@
     <div class="card small">
       <h3>Add new expense</h3>
       <p>Pump those numbers up</p>
+      <div class="layout layout-sm-column">
+        {{paper-input label="Name" value=name onChange=(action (mut name))}}
+        {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+        {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+        {{#paper-select
+          disabled=disableSelect
+          label="Category"
+          options=categoryOptions
+          selected=category
+          onChange=(action (mut category))
+          as |categoryOption|}}
+          {{categoryOption}}
+        {{/paper-select}}
+        {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+      </div>
+      {{#paper-button raised=true fab=true accent=true onClick=(action "addExpense")}}+{{/paper-button}}
+            
+      {{#if addExpenseToast}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}
+          {{#toast.text}}Expense succesfully added{{/toast.text}}
+          {{#paper-button accent=true onClick=(action "undoAddExpense")}}Undo{{/paper-button}}
+        {{/paper-toast}}
+      {{/if}}
+
+      {{#if undoAddExpenseToast}}
+        {{#paper-toast duration=3000 capsule=true onClose=(action "closeUndoToast") as |toast|}}
+          {{#toast.text}}Last Expense deleted{{/toast.text}}
+        {{/paper-toast}}
+      {{/if}}
     </div>
   </div>
 </div>

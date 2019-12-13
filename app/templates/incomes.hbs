@@ -12,11 +12,11 @@
       <p>Income sources and timestamps</p>
 
       <div align="center">
-        <p>Salary</p>
+        <p>Work</p>
         {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
-        <p>Freelancer</p>
+        <p>Freelance</p>
         {{ember-progress-bar progress=0.2 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
@@ -34,23 +34,20 @@
     <div class="card small">
       <h3>Add new income source</h3>
       <p>Pump those numbers up</p>
-      <div>
-        {{paper-input label="Name" placeholder="Enter name" value=name onChange=(action (mut name))}}
+      <div class="layout layout-sm-column">
+        {{paper-input label="Name" value=name onChange=(action (mut name))}}
+        {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+        {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+        {{#paper-select
+          disabled=disableSelect
+          label="Category"
+          options=categoryOptionsForIncome
+          selected=category
+          onChange=(action (mut category))
+          as |categoryOption|}}
+          {{categoryOption}}
+        {{/paper-select}}
       </div>
-      {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
-      {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
-      {{!-- {{paper-input label="Category" type="text" value=category onChange=(action (mut category))}} --}}
-      {{#paper-select
-        disabled=disableSelect
-        label="Category"
-        options=categoryOptions
-        selected=category
-        onChange=(action (mut category))
-        as |categoryOption|}}
-        {{categoryOption}}
-      {{/paper-select}}
-      {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
-
       {{#paper-button raised=true fab=true accent=true onClick=(action "addIncome")}}+{{/paper-button}}
             
       {{#if addIncomeToast}}

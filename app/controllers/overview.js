@@ -1,30 +1,51 @@
+/* eslint-disable ember/avoid-leaking-state-in-ember-objects */
+/* eslint-disable ember/use-brace-expansion */
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
+  categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+  
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
 
-  // eslint-disable-next-line ember/use-brace-expansion
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense')
   }),
-
-    // eslint-disable-next-line ember/use-brace-expansion
+ 
   expensesSorted: computed('transactions.length', 'transactions.@each.amount', function() {
-    // let a = this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
-    // return a.objectAt('a.length'-'1')
-    // !!! partea de mai sus vreau sa returneze ultimul record, deocamdata e array de obiecte
     return this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
   }),
 
-  // eslint-disable-next-line ember/use-brace-expansion
+// categories returning max amount spent and name
+  foodSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','food').objectAt(0)
+  }),
+
+  savingsSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','savings').objectAt(0)
+  }),
+
+  travelSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','travel').objectAt(0)
+  }),
+
+  transportationSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','transportation').objectAt(0)
+  }),
+
+  utilitiesSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','utilities').objectAt(0)
+  }),
+  medicalSorted: computed('expensesSorted',function(){
+    return this.get('expensesSorted').filterBy('category','medical').objectAt(0)
+  }),
+
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
   }),
 
-  // eslint-disable-next-line ember/use-brace-expansion
   savingSum: computed('transactions.length', 'transactions.@each.amount', function() {
     let sum = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0);
     return {
@@ -32,12 +53,7 @@ export default Controller.extend({
       sum: sum
     }
   }),
-  // eslint-disable-next-line ember/use-brace-expansion
-  foodTest: computed('expenses.length', 'expenses.@each.category', function() {
-    return Math.max.apply(Math, this.get('expenses').filterBy('category','food').mapBy('amount'))
-  }),
 
-  // eslint-disable-next-line ember/use-brace-expansion
   travelSum: computed('transactions.length', 'transactions.@each.amount', function() {
     let sum = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
     return {
@@ -45,7 +61,30 @@ export default Controller.extend({
       sum: sum
     }
   }),
-  // eslint-disable-next-line ember/use-brace-expansion
+
+  date: computed(function() {
+    let today = new Date();
+    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  }),
+
+  createExpense: computed(function() {
+    var name = this.get('name');
+    var amount = this.get('amount');
+    var date = this.get('date');
+    var category = this.get('category');
+    var description = this.get('description');
+
+    var newExpense = this.store.createRecord('transaction', {
+      typeOfT: 'expense',
+      name: name,
+      amount: amount,
+      date: new Date(date),
+      category: category, 
+      description: description
+    });
+    return newExpense.save()
+  }),
+
   expData: computed('expenses.length', 'expenses.@each.category', function(){
     return {
       food: this.get('expenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
@@ -56,8 +95,6 @@ export default Controller.extend({
       medical: this.get('expenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
     }
   }),
-
-
 
   priorityOptions: computed('expData', function() {
     return {
@@ -89,7 +126,17 @@ export default Controller.extend({
   }),
 
   actions: {
-    targetButton: function() {}
+    addQuickExpense: function() {
+      this.set('showPromptAddExpense', true)
+    },
+    closePromptDialog: function() {
+      this.set('showPromptAddExpense', false)
+    },
+    addExpense: function() {
+      const expense = this.get('createExpense');
+      this.set('lastExpense', expense);
+      this.set('showPromptAddExpense', false);
+    }
   }
 });
  
