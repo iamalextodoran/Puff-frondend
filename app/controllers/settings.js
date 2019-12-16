@@ -2,12 +2,11 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  
-  darkModeToggle: false,
   accentColorToggle: true,
   carryOverEnabled: true,
   currencyToggle:false,
   
+  darkModeToggle: false,
   
   users: computed(function() {
     return this.get('store').findAll('user');
@@ -15,9 +14,11 @@ export default Controller.extend({
 
   actions: {
     goToUser: function() {
+
     },
+
     darkModeToggle: function() {
-      this.toggleProperty('darkModeToggle');
+      
     }
   }
 });

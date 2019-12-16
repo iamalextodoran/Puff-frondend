@@ -1,4 +1,4 @@
-$primary: "grey";
+$primary: "purple";
 $accent: "purple";
 $warn: "pink";
 
@@ -29,9 +29,36 @@ p {
   color:  purple !important;
 }
 
-.container {
+// .container {
+//   margin-left: 50px;
+//   margin-right: 50px;
+// }
+html {
   margin-left: 50px;
   margin-right: 50px;
+}
+.darkMode {
+  background-color: #2c2c2c;
+  color: rgba(255, 255, 255, 0.9);
+  h1 {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  h3 {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  p {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .card {
+    background-color: #3F3F3F;
+  }
+  md-icon.md-default-theme {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .green {
+    color: green;
+  }
+
 }
 
 .card {
@@ -43,7 +70,7 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 .small {
-  margin-left: -75px;
+  margin-left: 25px;
 }
 
 footer {

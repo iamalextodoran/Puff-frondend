@@ -5,15 +5,37 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
-  
+  isBad: false,
+
+  // init(){
+  //   this._super(...arguments);
+  //   let darkModeOn = this.get('userHasDarkModeOn');
+
+  //   if (!darkModeOn) {
+  //     document.body.classList.add("darkMode");
+  //   } else {
+  //     document.body.classList.remove("darkMode");
+  //   }
+  // },
+
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
+  }),
+
+  userHasDarkModeOn: computed(function() {
+    return this.get('store').findAll('user').then(response => {
+      response.objectAt(3).get('darkMode')
+    })
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense')
   }),
- 
+
+  incomes: computed('transactions.length', 'transactions.@each.amount', function() {
+    return this.get('transactions').filterBy('typeOfT','income')
+  }),
+
   expensesSorted: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
   }),
@@ -41,25 +63,22 @@ export default Controller.extend({
   medicalSorted: computed('expensesSorted',function(){
     return this.get('expensesSorted').filterBy('category','medical').objectAt(0)
   }),
-
+  
+  //expenses and incomes sum
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
   }),
-
+  
+  incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
+    return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
+  }),
+  //savings and travel sums saved for bar use as an object
   savingSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    let sum = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0);
-    return {
-      progress: sum/1000,
-      sum: sum
-    }
+    return this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
   travelSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    let sum = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
-    return {
-      progress: sum/1000,
-      sum: sum
-    }
+    return this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
   date: computed(function() {
@@ -125,7 +144,31 @@ export default Controller.extend({
     };
   }),
 
+  allSavingsValue: computed('savingSum', 'travelSum', function() {
+    return this.get('savingSum') + this.get('travelSum')
+  }),
+
+  barValue: computed('allSavingsValue', 'savingSum', 'travelSum', function() {
+    let a = this.get('savingSum'),
+        b = this.get('travelSum'),
+        c = this.get('allSavingsValue');
+    return {
+      saving: a/c,
+      travel: b/c
+    }
+  }),
+
   actions: {
+    goToPerson: function() {
+      document.body.classList.toggle("darkMode");
+      let img = document.getElementById('mode').src;
+      if (img.indexOf('white.png')!=-1) {
+        document.getElementById('mode').src = 'assets/images/logo-black.png';
+      }
+      else {
+        document.getElementById('mode').src = 'assets/images/logo-white.png';
+      }
+    },
     addQuickExpense: function() {
       this.set('showPromptAddExpense', true)
     },
@@ -136,7 +179,12 @@ export default Controller.extend({
       const expense = this.get('createExpense');
       this.set('lastExpense', expense);
       this.set('showPromptAddExpense', false);
+      this.setProperties({
+        name: '',
+        amount: '',
+        category: '',
+        description: ''
+      });
     }
   }
 });
- 

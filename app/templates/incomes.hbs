@@ -11,21 +11,21 @@
     <div class="card">
       <h3>My income sources</h3>
       <p>Income sources and timestamps</p>
-      <p>---- functie pentru scalare si trebuie sa iau datele sortate dupa cele trei categorii prestabilite, barul reprez procentul din suma facuta luna aceasta</p>
+      <p>--datele sortate dupa cele trei categorii prestabilite</p>
       <div align="center">
         <p>Work</p>
-        {{ember-progress-bar progress=0.1 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=barValue.work options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Freelance</p>
-        {{ember-progress-bar progress=0.2 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=barValue.freelance options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Scolarship</p>
-        {{ember-progress-bar progress=0.7 options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=barValue.scolarship options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="right">
-        <h1 class="accentHeading">{{incomeSum}} lei</h1>
+        <h1 class="accentHeading">{{incomesSum}} lei</h1>
         <p>this month</p>
       </div>
     </div>

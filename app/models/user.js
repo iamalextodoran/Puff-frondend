@@ -4,4 +4,5 @@ const { Model } = DS;
 export default Model.extend({
   fullName: DS.attr(),
   picture: DS.attr(),
+  darkMode: DS.attr()
 });
