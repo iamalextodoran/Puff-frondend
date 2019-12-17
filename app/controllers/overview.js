@@ -18,15 +18,39 @@ export default Controller.extend({
   //   }
   // },
 
+  users: computed('users.length', 'users.@each.amount', function() {
+    return this.get('store').findAll('user')
+  }),
+
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
+
+//!!!??????
+//!!!
+//!!!??????
+
+
 
   userHasDarkModeOn: computed(function() {
     return this.get('store').findAll('user').then(response => {
       response.objectAt(3).get('darkMode')
     })
   }),
+
+  userHasDarkModeOn2: computed(function() {
+    return this.store.queryRecord('user', { filter: { darkMode: 'true' } })
+  }),
+
+  currentUserName: computed('users', function() {
+    return this.get('users').findBy('users', 42).get('fullName')
+  }),
+
+
+
+//!!!??????
+//!!!
+//!!!??????
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense')
@@ -169,12 +193,15 @@ export default Controller.extend({
         document.getElementById('mode').src = 'assets/images/logo-white.png';
       }
     },
+
     addQuickExpense: function() {
       this.set('showPromptAddExpense', true)
     },
+
     closePromptDialog: function() {
       this.set('showPromptAddExpense', false)
     },
+    
     addExpense: function() {
       const expense = this.get('createExpense');
       this.set('lastExpense', expense);
