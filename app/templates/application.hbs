@@ -9,10 +9,10 @@
 
     <div class="flex">
       <div class="layout-row layout-align-end-center">
-        {{#paper-button href="overview" raised=true primary=true}}Overview{{/paper-button}}
-        {{#paper-button href="incomes"}}Incomes{{/paper-button}}
-        {{#paper-button href="expenses"}}Expenses{{/paper-button}}
-        {{#paper-button href="settings"}}Settings{{/paper-button}}
+        {{#current-route-button route="overview"}}Overview{{/current-route-button}}
+        {{#current-route-button route="incomes"}}Incomes{{/current-route-button}}
+        {{#current-route-button route="expenses"}}Expenses{{/current-route-button}}
+        {{#current-route-button route="settings"}}Settings{{/current-route-button}}
       </div>
     </div>
 
@@ -22,5 +22,5 @@
 </body>
 
 <footer>
-  <p>Designed by @Alex</p>
+  <p>Designed by <b class="accentHeading">@Alex</b></p>
 </footer>

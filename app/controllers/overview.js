@@ -10,6 +10,7 @@ export default Controller.extend({
   init(){
     this._super(...arguments);
     document.body.classList.add("darkMode");
+    // document.getElementById('mode').src = 'assets/images/logo-white.png';
 
     // let darkModeOn = this.get('currentUser').get('darkMode');
 

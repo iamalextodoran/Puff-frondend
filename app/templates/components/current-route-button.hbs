@@ -1,0 +1,8 @@
+{{#paper-button
+    onclick=(transition-to @route)
+    href=(url-for @route)
+    raised=(is-active @route)
+    primary=(is-active @route)
+}}
+    {{yield}}
+{{/paper-button}}
