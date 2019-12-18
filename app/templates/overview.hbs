@@ -1,13 +1,20 @@
 <div class="layout-row layout-xs-column">
   <div class="flex-50">
+    {{!-- {{#each users as |user|}}
+      {{#paper-item class="md-3-line"}}
+        <img src={{user.picture}} alt={{user.fullName}} class="md-avatar">
+        <div class="md-list-item-text">
+          <h3>{{user.fullName}}</h3>
+          <h4>{{user.email}}</h4>
+          <p>Some notes here.</p>
+        </div>
+      {{/paper-item}}
+    {{/each}} --}}
 
     <div class="layout-row  layout-align-space-between-start container">
       <div>
-        <h1>Hey, {{currentUserName}}</h1>
+        <h1>Hey, {{currentUser.fullName}}</h1>
         <p>You doing good</p>
-        {{users}}
-        {{!-- ------adaugare nume in functie de user
-        ------adaugare functie pentru mesaj custom in functie de suma disponibila in cont (rosu, galben si verde --}}
       </div>
       <div>
         <h1 class={{if this.isBad "red" "green"}}>{{expenseSum}} lei</h1>
@@ -144,17 +151,4 @@
 
   </div>
 </div>
-
-
-
-
-{{#if userHasDarkModeOn2}}
-  <p>true</p>
-{{else}}
-  <p>false</p>
-{{/if}}
-
-
-
-
 {{outlet}}

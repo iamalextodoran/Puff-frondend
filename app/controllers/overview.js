@@ -7,50 +7,28 @@ export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
   isBad: false,
 
-  // init(){
-  //   this._super(...arguments);
-  //   let darkModeOn = this.get('userHasDarkModeOn');
+  init(){
+    this._super(...arguments);
+    document.body.classList.add("darkMode");
 
-  //   if (!darkModeOn) {
-  //     document.body.classList.add("darkMode");
-  //   } else {
-  //     document.body.classList.remove("darkMode");
-  //   }
-  // },
+    // let darkModeOn = this.get('currentUser').get('darkMode');
 
-  users: computed('users.length', 'users.@each.amount', function() {
-    return this.get('store').findAll('user')
+    // if (darkModeOn) {
+    //   document.body.classList.add("darkMode");
+    //   // document.getElementById('mode').src = 'assets/images/logo-black.png';
+    // } else {
+    //   document.body.classList.remove("darkMode");
+    //   // document.getElementById('mode').src = 'assets/images/logo-white.png';
+    // }
+  },
+
+  currentUser: computed(function() {
+    return this.get('store').findRecord('user', 42);
   }),
 
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
-
-//!!!??????
-//!!!
-//!!!??????
-
-
-
-  userHasDarkModeOn: computed(function() {
-    return this.get('store').findAll('user').then(response => {
-      response.objectAt(3).get('darkMode')
-    })
-  }),
-
-  userHasDarkModeOn2: computed(function() {
-    return this.store.queryRecord('user', { filter: { darkMode: 'true' } })
-  }),
-
-  currentUserName: computed('users', function() {
-    return this.get('users').findBy('users', 42).get('fullName')
-  }),
-
-
-
-//!!!??????
-//!!!
-//!!!??????
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','expense')
