@@ -7,22 +7,6 @@ export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
   isBad: false,
 
-  init(){
-    this._super(...arguments);
-    document.body.classList.add("darkMode");
-    // document.getElementById('mode').src = 'assets/images/logo-white.png';
-
-    // let darkModeOn = this.get('currentUser').get('darkMode');
-
-    // if (darkModeOn) {
-    //   document.body.classList.add("darkMode");
-    //   // document.getElementById('mode').src = 'assets/images/logo-black.png';
-    // } else {
-    //   document.body.classList.remove("darkMode");
-    //   // document.getElementById('mode').src = 'assets/images/logo-white.png';
-    // }
-  },
-
   currentUser: computed(function() {
     return this.get('store').findRecord('user', 42);
   }),

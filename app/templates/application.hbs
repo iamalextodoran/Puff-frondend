@@ -3,7 +3,11 @@
 
     <div class="flex">
       <a href="overview">
-        <img id="mode" src="assets/images/logo-black.png" alt="white-theme" width="188px" height="56px">
+        {{#unless currentUser.darkMode}}
+          <img src="assets/images/logo-black.png" alt="black-theme" width="188px" height="56px">
+        {{else}}
+          <img src="assets/images/logo-white.png" alt="white-theme" width="188px" height="56px">
+        {{/unless}}
       </a>
     </div>
 
@@ -18,7 +22,6 @@
 
   </div>
   {{outlet}}
-
 </body>
 
 <footer>

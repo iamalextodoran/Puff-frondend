@@ -1,5 +1,5 @@
 <div class="layout-row layout-xs-column">
-  <div class="flex container">
+  <div class="flex">
     <h1>Incomes</h1>
     <p>You are doing good this month. You still have 60% avalable</p>
     <p>-------functie pentru procent intre castig si cheltuieli pe luna respectiva</p>
@@ -7,11 +7,10 @@
 </div>
 
 <div class="layout-row layout-xs-column">
-  <div class="flex container">
+  <div class="flex">
     <div class="card">
       <h3>My income sources</h3>
       <p>Income sources and timestamps</p>
-      <p>--datele sortate dupa cele trei categorii prestabilite</p>
       <div align="center">
         <p>Work</p>
         {{ember-progress-bar progress=barValue.work options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
@@ -31,7 +30,7 @@
     </div>
   </div>
 
-  <div class="flex container">
+  <div class="flex">
     <div class="card small">
       <h3>Add new income source</h3>
       <p>Pump those numbers up</p>

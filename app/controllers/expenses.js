@@ -11,7 +11,7 @@ export default Controller.extend({
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').filterBy('typeOfT','expense')
+    return this.get('transactions').filterBy('typeOfT','expense').sortBy('date')
   }),
 
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {

@@ -1,5 +1,5 @@
 <div class="layout-row layout-xs-column">
-  <div class="flex container">
+  <div class="flex">
     <h1>Expenses</h1>
     <p>You are doing good this month. You still have 60% avalable</p>
   </div>
@@ -7,20 +7,14 @@
 </div>
 
 <div class="layout-row layout-xs-column">
-  <div class="flex container">
+  <div class="flex">
     <div class="card">
       <h3>My expenses</h3>
-      <p>Income sources and timestamps</p>
+      <p>Income sources</p>
       {{ember-chart type="doughnut" data=priorityOptions}}
 
       <div class="layout-row layout-align-space-between">
         <div>
-          <p>Sort them out by</p>
-          <p>--------implementare cu chips?</p>
-          {{#paper-button primary=true onClick=(action "targetButton")}}Day{{/paper-button}}
-          {{#paper-button accent=true onClick=(action "targetButton")}}Week{{/paper-button}}
-          {{#paper-button primary=true onClick=(action "targetButton")}}Month{{/paper-button}}
-          {{#paper-button primary=true onClick=(action "targetButton")}}Year{{/paper-button}}
 
         </div>
         <div>
@@ -30,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div class="flex container">
+  <div class="flex">
     <div class="card small">
       <h3>Add new expense</h3>
       <p>Pump those numbers up</p>
@@ -66,5 +60,22 @@
     </div>
   </div>
 </div>
+<div class="layout-row layout-xs-column">
+  <div class="flex-50 card">
+    <h3>All time history</h3>
+    <p>Watch your mouth</p>
+      {{#each expenses as |expense|}}
+        {{#paper-item class="md-3-line" onClick=(action "targetButton" item)}}
+          {{paper-icon "trending_down"}}
+          <div class="md-list-item-text">
+            <h3>{{expense.name}}</h3>
+            <p>{{expense.amount}} lei</p>
+            <p>{{expense.description}}</p>
+            <p align="right">{{expense.date}}</p> 
+          </div>
+        {{/paper-item}}
+      {{/each}}
+  </div>
+</div>  
 
 {{outlet}}
