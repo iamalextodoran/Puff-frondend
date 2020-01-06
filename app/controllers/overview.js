@@ -74,7 +74,7 @@ export default Controller.extend({
   currentMonthTotalLeftPercentage: computed('sumOfCurrentMonthIncomes', 'sumOfCurrentMonthExpenses', function(){
     let incomes = this.get('sumOfCurrentMonthIncomes');
     let total = this.get('currentMonthTotalLeft');
-    return (total/incomes).toFixed(2);
+    return (total/incomes*100).toFixed(2);
   }),
 
   expensesSorted: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.amount', function() {
