@@ -11,7 +11,27 @@ export default Controller.extend({
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').filterBy('typeOfT','expense').sortBy('date')
+    return this.get('transactions').filterBy('typeOfT','expense').sortBy('date').reverse()
+  }),
+
+    // then filter expenses by the current month
+  currentMonthExpenses: computed('expenses.length','expenses.@each.amount', function() {
+    return this.get('expenses').filter(expense => {
+      return new Date(expense.get('date')).getMonth() === new Date().getMonth();
+    });
+  }),
+
+  // now map all of this month's expenses by their amounts:
+  // currentMonthExpenseAmounts: mapBy('currentMonthExpenses', 'amount'),
+
+  currentMonthExpenseAmounts: computed(function() {
+    return this.get('currentMonthExpenses').mapBy('amount');
+  }),
+  // now sum all of the current month's expense amounts:
+  // sumOfCurrentMonthExpenses: sum('currentMonthExpensesAmounts'),
+
+  sumOfCurrentMonthExpenses: computed(function() {
+    return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0)
   }),
 
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
