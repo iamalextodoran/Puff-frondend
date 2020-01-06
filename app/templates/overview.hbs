@@ -4,10 +4,10 @@
     <div class="layout-row  layout-align-space-between-start container">
       <div>
         <h1>Hey, {{currentUser.fullName}}</h1>
-        <p>You doing good</p>
+        <p>{{if this.isBad "Kinda bad" "You good boii"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>avalable</p>
       </div>
       <div>
-        <h1 class={{if this.isBad "red" "green"}}>{{expenseSum}} lei</h1>
+        <h1 class={{if this.isBad "red" "green"}}>{{currentMonthTotalLeft}} lei</h1>
         <p align="right">avalable</p>
       </div>
     </div>

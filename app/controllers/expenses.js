@@ -14,7 +14,7 @@ export default Controller.extend({
     return this.get('transactions').filterBy('typeOfT','expense').sortBy('date').reverse()
   }),
 
-    // then filter expenses by the current month
+  // then filter expenses by the current month
   currentMonthExpenses: computed('expenses', function() {
     return this.get('expenses').filter(expense => {
       return new Date(expense.get('date')).getMonth() === new Date().getMonth();
@@ -58,14 +58,14 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  expData: computed('expenses.length', 'expenses.@each.category', function(){
+  expData: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', function(){
     return {
-      food: this.get('expenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
-      savings: this.get('expenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
-      travel: this.get('expenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
-      transportation: this.get('expenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
-      utilities: this.get('expenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
-      medical: this.get('expenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
+      food: this.get('currentMonthExpenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
+      savings: this.get('currentMonthExpenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
+      travel: this.get('currentMonthExpenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
+      transportation: this.get('currentMonthExpenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
+      utilities: this.get('currentMonthExpenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
+      medical: this.get('currentMonthExpenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
     }
   }),
 

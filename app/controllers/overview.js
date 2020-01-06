@@ -5,7 +5,15 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
-  isBad: false,
+
+  isBad: computed('currentMonthTotalLeft', function() {
+    let total = this.get('currentMonthTotalLeft');
+    if (total < 1000) {
+      return true;
+    } else {
+      return false;
+    }
+  }),
 
   currentUser: computed(function() {
     return this.get('store').findRecord('user', 42);
@@ -19,12 +27,58 @@ export default Controller.extend({
     return this.get('transactions').filterBy('typeOfT','expense')
   }),
 
+  // then filter expenses by the current month
+  currentMonthExpenses: computed('expenses', function() {
+    return this.get('expenses').filter(expense => {
+      return new Date(expense.get('date')).getMonth() === new Date().getMonth();
+    });
+  }),
+
+  // now map all of this month's expenses by their amounts:
+  currentMonthExpenseAmounts: computed('currentMonthExpenses', function() {
+    return this.get('currentMonthExpenses').mapBy('amount');
+  }),
+
+  // now sum all of the current month's expense amounts:
+  sumOfCurrentMonthExpenses: computed('currentMonthExpenseAmounts', function() {
+    return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0);
+  }),
+
   incomes: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','income')
   }),
 
-  expensesSorted: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').filterBy('typeOfT','expense').sortBy('amount').reverse()
+  // then filter expenses by the current month
+  currentMonthIncomes: computed('incomes', function() {
+    return this.get('incomes').filter(incomes => {
+      return new Date(incomes.get('date')).getMonth() === new Date().getMonth();
+    });
+  }),
+
+  // now map all of this month's expenses by their amounts:
+  currentMonthIncomesAmounts: computed('currentMonthIncomes', function() {
+    return this.get('currentMonthIncomes').mapBy('amount');
+  }),
+
+  // now sum all of the current month's expense amounts:
+  sumOfCurrentMonthIncomes: computed('currentMonthIncomesAmounts', function() {
+    return this.get('currentMonthIncomesAmounts').reduce((a, b) => a + b, 0);
+  }),
+
+  currentMonthTotalLeft: computed('sumOfCurrentMonthIncomes', 'sumOfCurrentMonthExpenses', function(){
+    let incomes = this.get('sumOfCurrentMonthIncomes');
+    let expenses = this.get('sumOfCurrentMonthExpenses');
+    return incomes-expenses;
+  }),
+
+  currentMonthTotalLeftPercentage: computed('sumOfCurrentMonthIncomes', 'sumOfCurrentMonthExpenses', function(){
+    let incomes = this.get('sumOfCurrentMonthIncomes');
+    let total = this.get('currentMonthTotalLeft');
+    return (total/incomes).toFixed(2);
+  }),
+
+  expensesSorted: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.amount', function() {
+    return this.get('currentMonthExpenses').sortBy('amount').reverse()
   }),
 
 // categories returning max amount spent and name
@@ -91,14 +145,14 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  expData: computed('expenses.length', 'expenses.@each.category', function(){
+  expData: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', function(){
     return {
-      food: this.get('expenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
-      savings: this.get('expenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
-      travel: this.get('expenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
-      transportation: this.get('expenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
-      utilities: this.get('expenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
-      medical: this.get('expenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
+      food: this.get('currentMonthExpenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
+      savings: this.get('currentMonthExpenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
+      travel: this.get('currentMonthExpenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
+      transportation: this.get('currentMonthExpenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
+      utilities: this.get('currentMonthExpenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
+      medical: this.get('currentMonthExpenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
     }
   }),
 
@@ -116,12 +170,12 @@ export default Controller.extend({
             'rgba(255, 159, 64)'
           ],
           borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
           ],
           borderWidth: 1
         }
