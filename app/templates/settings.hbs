@@ -52,9 +52,8 @@
 
     <div class="card">
       <h3>Users</h3>
-      <p>------schimb pe dropdown?</p>
 
-      {{#each users as |user|}}
+      {{!-- {{#each users as |user|}}
         {{#paper-item class="md-3-line" onClick=(action "goToUser" item)}}
           <img src={{user.picture}} alt={{user.fullName}} class="md-avatar">
           <div class="md-list-item-text">
@@ -63,8 +62,21 @@
             <p>Some notes here.</p>
           </div>
         {{/paper-item}}
-      {{/each}}
+      {{/each}} --}}
 
+      {{#paper-select
+        label="Users"
+        options=userNames
+        onChange=(action (mut userState))
+        selected=currentUser
+        as |state|}}
+        {{state}}
+      {{/paper-select}}
+      <p>Select danger zone</p>
+      <div class="layout layout-align-center-center slider-container">
+        {{paper-slider class="flex" min=0 max=3000 value=dangerValue onChange=(action (mut dangerValue))}}
+        {{paper-input type="number" value=dangerValue onChange=(action (mut dangerValue))}}
+      </div>
     </div>
 
   </div>
