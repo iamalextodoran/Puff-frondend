@@ -3,23 +3,19 @@ import { computed } from "@ember/object";
 
 
 export default Controller.extend({
-  // hasDarkMode: true,
-
   currentUser: computed(function() {
     return this.get('store').findRecord('user', 42)
   }),
 
-  hasDarkMode: computed(function() {
-    return this.get('currentUser').then(response => {
-      return response.darkMode;
-    })
+  hasDarkMode: computed('currentUser.darkMode', function() {
+    return this.get('currentUser.darkMode');
   }),
+
+  test: true,
 
   init(){  
     this._super(...arguments);
-    const darkModeOn = this.get('hasDarkMode');
-    
-    if (darkModeOn) { 
+    if (this.get('hasDarkMode')) { 
       document.body.classList.add("darkMode");
     } else {
       document.body.classList.remove("darkMode");
