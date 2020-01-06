@@ -11,21 +11,18 @@ export default Controller.extend({
 
   hasDarkMode: computed(function() {
     return this.get('currentUser').then(response => {
-      return response.data.darkMode;
+      return response.darkMode;
     })
   }),
 
   init(){  
     this._super(...arguments);
-    // const darkModeOn = this.get('currentUser').then(response => {
-    //   debugger
-    //   return response.data.darkMode;
-    // })
+    const darkModeOn = this.get('hasDarkMode');
     
-    // if (darkModeOn) {
-    //   document.body.classList.add("darkMode");
-    // } else {
-    //   document.body.classList.remove("darkMode");
-    // }
+    if (darkModeOn) { 
+      document.body.classList.add("darkMode");
+    } else {
+      document.body.classList.remove("darkMode");
+    }
   }
 });

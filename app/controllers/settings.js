@@ -6,10 +6,12 @@ export default Controller.extend({
   carryOverEnabled: true,
   currencyToggle:false,
   
-  darkModeToggle: false,
-  
   users: computed(function() {
     return this.get('store').findAll('user');
+  }),
+
+  currentUserDarkMode: computed(function() {
+    return this.get('store').findRecord('user', 42).get('darkMode');
   }),
 
   actions: {
@@ -18,7 +20,11 @@ export default Controller.extend({
     },
 
     darkModeToggle: function() {
-      
+      return this.store.findRecord('user', 42).then(function(user) {
+        user.darkMode = true;
+    
+        user.save();
+      });
     }
   }
 });

@@ -202,13 +202,6 @@ export default Controller.extend({
   actions: {
     goToPerson: function() {
       document.body.classList.toggle("darkMode");
-      let img = document.getElementById('mode').src;
-      if (img.indexOf('white.png')!=-1) {
-        document.getElementById('mode').src = 'assets/images/logo-black.png';
-      }
-      else {
-        document.getElementById('mode').src = 'assets/images/logo-white.png';
-      }
     },
 
     addQuickExpense: function() {
