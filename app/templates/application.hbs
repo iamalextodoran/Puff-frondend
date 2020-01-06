@@ -3,11 +3,7 @@
 
     <div class="flex">
       <a href="overview">
-        {{#unless currentUser.darkMode}}
-          <img src="assets/images/logo-black.png" alt="black-theme" width="188px" height="56px">
-        {{else}}
-          <img src="assets/images/logo-white.png" alt="white-theme" width="188px" height="56px">
-        {{/unless}}
+        <img src= {{if currentUser.darkMode "assets/images/logo-white.png" "assets/images/logo-black.png"}} alt="theme" width="188px" height="56px">
       </a>
     </div>
 
