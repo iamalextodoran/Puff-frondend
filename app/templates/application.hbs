@@ -3,7 +3,7 @@
 
     <div class="flex">
       <a href="overview">
-        <img src= {{if currentUser.darkMode "assets/images/logo-white.png" "assets/images/logo-black.png"}} alt="theme" width="188px" height="56px">
+        <img src= {{if darkMode "assets/images/logo-white.png" "assets/images/logo-black.png"}} alt="theme" width="188px" height="56px">
       </a>
     </div>
 
@@ -22,7 +22,7 @@
 
 <footer>
   
-  {{#if hasDarkMode}}
+  {{#if darkMode}}
     <p>are Darkmode</p>
   {{else}}
     <p>n-are Darkmode</p>
