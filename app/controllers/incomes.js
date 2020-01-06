@@ -14,23 +14,43 @@ export default Controller.extend({
     return this.get('transactions').filterBy('typeOfT','income')
   }),
 
+  // then filter expenses by the current month
+  currentMonthIncomes: computed('incomes', function() {
+    return this.get('incomes').filter(incomes => {
+      return new Date(incomes.get('date')).getMonth() === new Date().getMonth();
+    });
+  }),
+
+  // now map all of this month's expenses by their amounts:
+  currentMonthIncomesAmounts: computed('currentMonthIncomes', function() {
+    return this.get('currentMonthIncomes').mapBy('amount');
+  }),
+
+  // now sum all of the current month's expense amounts:
+  sumOfCurrentMonthIncomes: computed('currentMonthIncomesAmounts', function() {
+    return this.get('currentMonthIncomesAmounts').reduce((a, b) => a + b, 0);
+  }),
+
+  //all time incomes sum
   incomesSum: computed('incomes.length', 'incomes.@each.amount', function() {
     return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
   }),
 
-  workSum: computed('incomes.length', 'incomes.@each.amount', function() {
-    return this.get('incomes').filterBy('category', 'work').mapBy('amount').reduce((a, b) => a + b, 0);
+
+
+  workSum: computed('currentMonthIncomes.length', 'currentMonthIncomes.@each.amount', function() {
+    return this.get('currentMonthIncomes').filterBy('category', 'work').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
-  scolarshipSum: computed('incomes.length', 'incomes.@each.amount', function() {
-    return this.get('incomes').filterBy('category', 'scolarship').mapBy('amount').reduce((a, b) => a + b, 0);
+  scolarshipSum: computed('currentMonthIncomes.length', 'currentMonthIncomes.@each.amount', function() {
+    return this.get('currentMonthIncomes').filterBy('category', 'scolarship').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
-  freelanceSum: computed('incomes.length', 'incomes.@each.amount', function() {
-    return this.get('incomes').filterBy('category', 'freelance').mapBy('amount').reduce((a, b) => a + b, 0);
+  freelanceSum: computed('currentMonthIncomes.length', 'currentMonthIncomes.@each.amount', function() {
+    return this.get('currentMonthIncomes').filterBy('category', 'freelance').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
-  barValue: computed('incomesSum', 'workSum', 'scolarshipSum', 'freelanceSum', function() {
+  barValue: computed('sumOfCurrentMonthIncomes', 'workSum', 'scolarshipSum', 'freelanceSum', function() {
     let a = this.get('workSum'),
         b = this.get('scolarshipSum'),
         c = this.get('freelanceSum'),

@@ -30,7 +30,7 @@ export default Controller.extend({
   sumOfCurrentMonthExpenses: computed('currentMonthExpenseAmounts', function() {
     return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0);
   }),
-
+  //all time expenses sum
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
