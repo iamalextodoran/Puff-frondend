@@ -65,16 +65,75 @@
     <h3>All time history</h3>
     <p>Watch your mouth</p>
     {{#each expenses as |expense|}}
-      {{#paper-item class="md-3-line" onClick=(action "targetButton" item)}}
+      {{#paper-item class="md-3-line"}}
         {{paper-icon "trending_down"}}
         <div class="md-list-item-text">
           <h3>{{expense.name}}</h3>
           <p>{{expense.amount}} lei</p>
           <p>{{expense.description}}</p>
-          <p align="right">{{expense.date}}</p> 
+          <p>{{expense.date}}</p>
+          {{#paper-menu as |menu|}}
+            {{#menu.trigger}}
+              {{#paper-button onClick=null iconButton=true}}
+                {{paper-icon "more_horiz" class="md-menu-origin"}}
+              {{/paper-button}}
+            {{/menu.trigger}}
+
+            {{#menu.content width=2 as |content|}}
+                {{#content.menu-item onClick=(action "showEditDialogAction" expense)}}
+                  {{paper-icon "edit" class="md-menu-origin"}}
+                  <span class="md-menu-align-target">Edit</span> {{item}}
+                {{/content.menu-item}}
+
+                {{#content.menu-item onClick=(action "showDeleteDialogAction" expense)}}
+                 {{paper-icon "delete" class="md-menu-origin"}}
+                  <span class="md-menu-align-target">Delete</span> {{item}}
+                {{/content.menu-item}}
+            {{/menu.content}}
+          {{/paper-menu}}
         </div>
       {{/paper-item}}
     {{/each}}
+
+    {{#if showDeleteDialog}}
+      {{#paper-dialog class="flex-77" onClose=(action "closeDeleteDialogAction" "cancel") origin=dialogOrigin fullscreen=true clickOutsideToClose=true}}
+        {{#paper-dialog-content}}
+          <span>Are you sure you want to delete "{{currentExpense.name}}"?</span>
+          {{#paper-button raised=true primary=true onClick=(action "confirmDelete")}}Yes{{/paper-button}}
+          {{#paper-button raised=true primary=true onClick=(action "closeDeleteDialogAction")}}Cancel{{/paper-button}}
+        {{/paper-dialog-content}}
+      {{/paper-dialog}}
+    {{/if}}
+
+    {{#if showEditDialog}}
+      {{#paper-dialog fullscreen=true escapeToClose=true clickOutsideToClose=true onClose=(action "closeEditDialogAction") origin=dialogOrigin}}
+        {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
+          <div class="layout layout-sm-column">
+            {{paper-input label="Name" placeholder=currentExpense.name value=editedName onChange=(action (mut editedName))}} 
+            {{!-- value sau placeholder --}}
+            {{paper-input label="Amount" type="number" value=currentExpense.amount onChange=(action (mut currentExpense.amount))}}
+            {{paper-input label="Submission date" type="date" value=currentExpense.date onChange=(action (mut currentExpense.date))}}
+            {{#paper-select
+              disabled=disableSelect
+              label="Category"
+              options=categoryOptions
+              selected=currentExpense.category
+              onChange=(action (mut currentExpense.category))
+              as |categoryOption|}}
+              {{categoryOption}}
+            {{/paper-select}}
+            {{paper-input textarea=true block=true label="Description" value=currentExpense.description onChange=(action (mut currentExpense.description))}}
+          </div>
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row"}}
+          {{#paper-button onClick=(action "closeEditDialogAction")}}{{paper-icon "cancel" size=18}} Cancel{{/paper-button}}
+          {{#paper-button onClick=(action "confirmEdit")}}{{paper-icon "edit" size=18}} Edit expense{{/paper-button}}
+        {{/paper-dialog-actions}}
+
+      {{/paper-dialog}}
+    {{/if}}
+
   </div>
 </div>  
 {{outlet}}

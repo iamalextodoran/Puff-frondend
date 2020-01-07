@@ -5,7 +5,6 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
-  
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
@@ -98,8 +97,48 @@ export default Controller.extend({
     };
   }),
 
+  showDeleteDialog: false,
   actions: {
-    targetButton() {},
+    editButton() {
+      this.set('showEditDialog', true);
+    },
+
+    confirmEdit() {
+      const newName = this.get('currentExpense.name');
+      this.set('currentExpense.name', newName);
+      this.set('showEditDialog', false);
+      return newName.save()
+    },
+
+    showEditDialogAction(expense) {
+      this.set('currentExpense', expense);
+      this.set("showEditDialog", true);
+    },
+
+    closeEditDialogAction() {
+      this.set("showEditDialog", false);
+    },
+
+
+
+
+    deleteButton() {
+      this.set('showDeleteDialog', true);
+    },
+
+    confirmDelete() {
+      this.get('currentExpense').destroyRecord();
+      this.set('showDeleteDialog', false);
+    },
+
+    showDeleteDialogAction(expense) {
+      this.set('currentExpense', expense);
+      this.set("showDeleteDialog", true);
+    },
+
+    closeDeleteDialogAction() {
+      this.set("showDeleteDialog", false);
+    },
 
     undoAddExpense() {
       this.get('lastExpense.content').destroyRecord();

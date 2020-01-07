@@ -201,7 +201,6 @@ export default Controller.extend({
 
   actions: {
     goToPerson: function() {
-      document.body.classList.toggle("darkMode");
     },
 
     addQuickExpense: function() {
