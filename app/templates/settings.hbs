@@ -15,31 +15,50 @@
         {{paper-icon "brightness-2"}}
         <p>Darkmode</p>
         <div class="md-secondary-container">
-          {{controls.switch secondary=false value=darkModeToggle onChange=(action (mut darkModeToggle))}}
+          {{#paper-switch value=darkModeToggle onChange=(action (mut darkModeToggle))}}{{/paper-switch}}
         </div>
       {{/paper-item}}
 
       {{#paper-item as |controls|}}
         {{paper-icon "landscape"}}
-        <p>Accent color</p>
+        <p>Somth</p>
         <div class="md-secondary-container">
-          {{controls.switch secondary=true value=accentColorToggle onChange=(action (mut accentColorToggle))}}
+          {{#paper-switch value=darkModeToggle onChange=(action (mut darkModeToggle))}}{{/paper-switch}}
         </div>
       {{/paper-item}}
 
       {{#paper-item as |controls|}}
         {{paper-icon "call-split"}}
-        <p>Carry over</p>
-        <div class="md-secondary-container">
-          {{controls.switch secondary=true value=carryOverEnabled onChange=(action (mut carryOverEnabled))}}
+        <p>Red flag value</p>
+        <div class="flex layout layout-align-center-center slider-container">
+          <p>V</p>
+          {{paper-slider class="flex" min=0 max=3000 value=dangerValue onChange=(action (mut dangerValue))}}
+          {{paper-input type="number" value=dangerValue onChange=(action (mut dangerValue))}}   
         </div>
       {{/paper-item}}
 
       {{#paper-item as |controls|}}
-        {{paper-icon "attach-money"}}
-        <p>Coin</p>
-        <div class="md-secondary-container">
-          {{controls.switch secondary=true value=currencyToggle onChange=(action (mut currencyToggle))}}
+        {{paper-icon "landscape"}}
+        <p>Accent color <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+        <div class="flex">
+          <div class="layout layout-align-center-center slider-container">
+            <p>R</p>
+            {{paper-slider class="flex" min=0 max=255 value=color.red onChange=(action (mut color.red))}}
+            {{paper-input type="number" value=color.red onChange=(action (mut color.red))}}
+          </div>
+
+          <div class="layout layout-align-center-center slider-container">
+            <p>G</p>
+            {{paper-slider class="flex md-accent" min=0 max=255 value=color.green onChange=(action (mut color.green))}}
+            {{paper-input type="number" value=color.green  onChange=(action (mut color.green))}}
+          </div>
+
+          <div class="layout layout-align-center-center slider-container">
+            <p>B</p>
+            {{paper-slider class="flex md-primary" min=0 max=255 value=color.blue onChange=(action (mut color.blue))}}
+            {{paper-input type="number" value=color.blue onChange=(action (mut color.blue))}}
+          </div>
         </div>
       {{/paper-item}}
 
@@ -63,20 +82,19 @@
           </div>
         {{/paper-item}}
       {{/each}} --}}
+      {{currentUser}}
 
-      {{#paper-select
-        label="Users"
-        options=userNames
-        onChange=(action (mut userState))
-        selected=currentUser
-        as |state|}}
-        {{state}}
-      {{/paper-select}}
-      <p>Select danger zone</p>
-      <div class="layout layout-align-center-center slider-container">
-        {{paper-slider class="flex" min=0 max=3000 value=dangerValue onChange=(action (mut dangerValue))}}
-        {{paper-input type="number" value=dangerValue onChange=(action (mut dangerValue))}}
+      <div class="flex">
+        {{#paper-select
+          label="Selected user"
+          options=userNames
+          onChange=(action (mut selectedUser))
+          selected=selectedUser
+          as |state|}}
+          {{state}}
+        {{/paper-select}}
       </div>
+
     </div>
 
   </div>
