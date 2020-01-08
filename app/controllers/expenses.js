@@ -104,10 +104,9 @@ export default Controller.extend({
     },
 
     confirmEdit() {
-      const newName = this.get('currentExpense.name');
-      this.set('currentExpense.name', newName);
-      this.set('showEditDialog', false);
-      return newName.save()
+      this.get('currentExpense').save().then( ()=> {
+        this.set("showEditDialog", false);
+      })
     },
 
     showEditDialogAction(expense) {
@@ -118,7 +117,6 @@ export default Controller.extend({
     closeEditDialogAction() {
       this.set("showEditDialog", false);
     },
-
 
 
 
