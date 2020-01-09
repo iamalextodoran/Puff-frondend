@@ -63,7 +63,7 @@ export default Controller.extend({
     }
   }),
   
-  date: computed(function() {
+  dateNow: computed(function() {
     let today = new Date();
     return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   }),

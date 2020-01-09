@@ -29,14 +29,37 @@
       <h3>Add new expense</h3>
       <p>Pump those numbers up</p>
       <div class="layout layout-sm-column">
-        {{paper-input label="Name" value=name onChange=(action (mut name))}}
-        {{paper-input label="Amount" type="number" value=amount onChange=(action (mut amount))}}
+        {{paper-input 
+          label="Name" 
+          value=name 
+          required=true
+          errorMessages=(hash
+            required="Name is required"
+          ) 
+          onChange=(action (mut name))}}
+
+        {{paper-input 
+          label="Amount" 
+          type="number" 
+          value=amount 
+          required=true
+          min=1
+          errorMessages=(hash
+            required="Amount is required"
+          ) 
+          onChange=(action (mut amount))}}
+
         {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+
         {{#paper-select
           disabled=disableSelect
           label="Category"
           options=categoryOptions
           selected=category
+          required=true
+          errorMessages=(hash
+            required="Choose"
+          ) 
           onChange=(action (mut category))
           as |categoryOption|}}
           {{categoryOption}}

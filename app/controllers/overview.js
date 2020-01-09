@@ -122,7 +122,7 @@ export default Controller.extend({
     return this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
-  date: computed(function() {
+  dateNow: computed(function() {
     let today = new Date();
     return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   }),
