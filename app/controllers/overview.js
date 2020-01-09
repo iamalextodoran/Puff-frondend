@@ -104,6 +104,28 @@ export default Controller.extend({
   medicalSorted: computed('expensesSorted',function(){
     return this.get('expensesSorted').filterBy('category','medical').objectAt(0)
   }),
+
+  categories1: computed('foodSorted', 'savingsSorted', function(){
+    return [
+      this.get('foodSorted'),
+      this.get('savingsSorted'),
+  ]
+  }),
+
+  categories2: computed('foodSorted', 'savingsSorted', function(){
+    return [
+      this.get('travelSorted'),
+      this.get('transportationSorted')
+  ]
+  }),
+
+  categories3: computed('foodSorted', 'savingsSorted', function(){
+    return [
+      this.get('utilitiesSorted'),
+      this.get('medicalSorted')
+  ]
+  }),
+
   
   //expenses and incomes sum
   expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
@@ -198,9 +220,14 @@ export default Controller.extend({
       travel: b/c
     }
   }),
+  currentTopExpense: computed(function() {
+    return this.get('foodSorted')
+  }),
 
   actions: {
-    goToPerson: function() {
+    goToPerson: function(item) {
+      this.set('currentTopExpense', item)
+      this.set('showExpenseDialog', true);
     },
 
     addQuickExpense: function() {
@@ -209,6 +236,10 @@ export default Controller.extend({
 
     closePromptDialog: function() {
       this.set('showPromptAddExpense', false)
+    },
+
+    closeAnimatedDialog: function() {
+      this.set('showExpenseDialog', false)
     },
     
     addExpense: function() {

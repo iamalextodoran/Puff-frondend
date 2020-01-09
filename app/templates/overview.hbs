@@ -103,7 +103,7 @@
 
       <div class="layout-row flex">
         <div class="flex">
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{foodSorted.name}}</h3>
@@ -111,18 +111,28 @@
             </div>
           {{/paper-item}}
 
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{transportationSorted.name}}</h3>
               <p>{{transportationSorted.amount}}</p>
             </div>
-          {{/paper-item}}
+          {{/paper-item}} --}}
 
+
+          {{#each categories1 as |category|}}
+            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
+              {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
+              <div class="md-list-item-text">
+                <h3>{{category.name}}</h3>
+                <p>{{category.amount}}</p>
+              </div>
+            {{/paper-item}}
+          {{/each}}
         </div>
       
         <div class="flex">
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "flight" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{travelSorted.name}}</h3>
@@ -130,17 +140,27 @@
             </div>
           {{/paper-item}}
 
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "payment" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{utilitiesSorted.name}}</h3>
               <p>{{utilitiesSorted.amount}}</p>
             </div>
-          {{/paper-item}}
+          {{/paper-item}} --}}
+
+          {{#each categories2 as |category|}}
+            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
+              {{paper-icon "payment" size=30 class="md-avatar-icon"}}
+              <div class="md-list-item-text">
+                <h3>{{category.name}}</h3>
+                <p>{{category.amount}}</p>
+              </div>
+            {{/paper-item}}
+          {{/each}}
 
         </div>
         <div class="flex">
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{medicalSorted.name}}</h3>
@@ -148,13 +168,42 @@
             </div>
           {{/paper-item}}
 
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson")}}
+          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
             {{paper-icon "eco" size=30 class="md-avatar-icon"}}
             <div class="md-list-item-text">
               <h3>{{savingsSorted.name}}</h3>
               <p>{{savingsSorted.amount}}</p>
             </div>
-          {{/paper-item}}
+          {{/paper-item}} --}}
+
+          {{#each categories3 as |category|}}
+            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
+              {{paper-icon "eco" size=30 class="md-avatar-icon"}}
+              <div class="md-list-item-text">
+                <h3>{{category.name}}</h3>
+                <p>{{category.amount}}</p>
+              </div>
+            {{/paper-item}}
+          {{/each}}
+
+          {{#if showExpenseDialog}}
+            {{#paper-dialog fullscreen=fullscreen clickOutsideToClose=true onClose=(action "closeAnimatedDialog") openFrom="#paper-dialog-demo" closeTo="#bottom-of-card"}}
+
+              {{#paper-dialog-content}}
+                <h2 class="md-title">{{currentTopExpense.name}}</h2>
+                <p>Amount paid: <b>{{currentTopExpense.amount}}</b></p>
+                <p>When: <b>{{moment-format currentTopExpense.date 'DD/MM/YYYY'}}</b></p>
+                <p>Description:</p> 
+                <p><b>{{currentTopExpense.description}}</b></p>
+              {{/paper-dialog-content}}
+
+              {{#paper-dialog-actions class="layout-row"}}
+                <span class="flex"></span>
+                {{#paper-button primary=true onClick=(action "closeAnimatedDialog")}}Okay!{{/paper-button}}
+              {{/paper-dialog-actions}}
+
+            {{/paper-dialog}}
+          {{/if}}
         </div>
 
       </div>
@@ -162,4 +211,11 @@
 
   </div>
 </div>
+
+
+
+
+
+
+
 {{outlet}}
