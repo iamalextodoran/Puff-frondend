@@ -94,11 +94,13 @@
           <h3>{{expense.name}}</h3>
           <p>{{expense.amount}} lei</p>
           <p>{{expense.description}}</p>
-          <p>{{moment-format expense.date 'DD/MM/YYYY'}}</p>
+        </div>
+        <div align=right class="md-list-item-text">
+
           {{#paper-menu as |menu|}}
             {{#menu.trigger}}
               {{#paper-button onClick=null iconButton=true}}
-                {{paper-icon "more_horiz" class="md-menu-origin"}}
+                {{paper-icon "more_vert" class="md-menu-origin"}}
               {{/paper-button}}
             {{/menu.trigger}}
 
@@ -114,6 +116,9 @@
                 {{/content.menu-item}}
             {{/menu.content}}
           {{/paper-menu}}
+
+          <p>{{moment-format expense.date 'DD/MM/YYYY'}}</p>
+
         </div>
       {{/paper-item}}
     {{/each}}
