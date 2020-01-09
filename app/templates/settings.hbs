@@ -65,37 +65,3 @@
     </div>
   </div>
 </div>
-
-<div class="layout-row layout-xs-column">
-  <div class="flex container">
-
-    <div class="card">
-      <h3>Users</h3>
-
-      {{!-- {{#each users as |user|}}
-        {{#paper-item class="md-3-line" onClick=(action "goToUser" item)}}
-          <img src={{user.picture}} alt={{user.fullName}} class="md-avatar">
-          <div class="md-list-item-text">
-            <h3>{{user.fullName}}</h3>
-            <h4>{{user.email}}</h4>
-            <p>Some notes here.</p>
-          </div>
-        {{/paper-item}}
-      {{/each}} --}}
-      {{currentUser}}
-
-      <div class="flex">
-        {{#paper-select
-          label="Selected user"
-          options=userNames
-          onChange=(action (mut selectedUser))
-          selected=selectedUser
-          as |state|}}
-          {{state}}
-        {{/paper-select}}
-      </div>
-
-    </div>
-
-  </div>
-</div>

@@ -13,20 +13,20 @@
         {{#current-route-button route="incomes"}}Incomes{{/current-route-button}}
         {{#current-route-button route="expenses"}}Expenses{{/current-route-button}}
         {{#current-route-button route="settings"}}Settings{{/current-route-button}}
-        {{#paper-menu as |menu|}}
+        {{#paper-menu position="target-right target" as |menu|}}
           {{#menu.trigger}}
             {{#paper-button onClick=null}}
-              <img src='https://pbs.twimg.com/profile_images/1000050491970260993/FJkauyEa.jpg' class="user">
+              <img src='{{currentUser.picture}}' class="user">
             {{/paper-button}}
           {{/menu.trigger}}
 
           {{#menu.content width=2 as |content|}}
-              {{#content.menu-item onClick=(action "changeUser" currentUser)}}
-                {{#each users as |user|}}
-                  <img src={{user.picture}} alt={{user.fullName}} class="user md-avatar">
-                  <span>{{user.fullName}}</span>
-                {{/each}}
-              {{/content.menu-item}}
+              {{#each users as |user|}}
+                {{#content.menu-item onClick=(action "changeUser" currentUserVariable)}}
+                    <img src={{user.picture}} alt={{user.fullName}} class="user avatar">
+                    <span>{{user.fullName}}</span>
+                {{/content.menu-item}}
+              {{/each}}
           {{/menu.content}}
         {{/paper-menu}}
       </div>
@@ -35,6 +35,11 @@
   </div>
   {{outlet}}
 </body>
+
+
+{{currentUser.fullName}}
+{{currentUser.picture}}
+{{currentUser.darkMode}}
 
 <footer>
   <p>Designed by <b class="accentHeading">@Alex</b></p>
