@@ -23,7 +23,7 @@
           {{#menu.content width=2 as |content|}}
               {{#each users as |user|}}
                 {{#content.menu-item onClick=(action "changeUser" currentUserVariable)}}
-                    <img src={{user.picture}} alt={{user.fullName}} class="user avatar">
+                    <img src={{user.picture}} alt={{user.fullName}} class="user">
                     <span>{{user.fullName}}</span>
                 {{/content.menu-item}}
               {{/each}}

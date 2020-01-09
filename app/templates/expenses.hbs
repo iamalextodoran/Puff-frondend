@@ -71,7 +71,7 @@
           <h3>{{expense.name}}</h3>
           <p>{{expense.amount}} lei</p>
           <p>{{expense.description}}</p>
-          <p>{{expense.date}}</p>
+          <p>{{moment-format expense.date 'DD/MM/YYYY'}}</p>
           {{#paper-menu as |menu|}}
             {{#menu.trigger}}
               {{#paper-button onClick=null iconButton=true}}
