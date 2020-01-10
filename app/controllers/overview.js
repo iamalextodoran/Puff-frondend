@@ -126,15 +126,14 @@ export default Controller.extend({
   ]
   }),
 
-  
   //expenses and incomes sum
-  expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
-  }),
+  // expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
+  //   return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
+  // }),
   
-  incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
-  }),
+  // incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
+  //   return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
+  // }),
   //savings and travel sums saved for bar use as an object
   savingSum: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0);
@@ -144,10 +143,10 @@ export default Controller.extend({
     return this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
-  dateNow: computed(function() {
-    let today = new Date();
-    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  }),
+  // dateNow: computed(function() {
+  //   let today = new Date();
+  //   return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  // }),
 
   createExpense: computed(function() {
     var name = this.get('name');

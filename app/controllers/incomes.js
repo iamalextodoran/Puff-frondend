@@ -32,9 +32,9 @@ export default Controller.extend({
   }),
 
   //all time incomes sum
-  incomesSum: computed('incomes.length', 'incomes.@each.amount', function() {
-    return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
-  }),
+  // incomesSum: computed('incomes.length', 'incomes.@each.amount', function() {
+  //   return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
+  // }),
 
 
 
@@ -54,7 +54,7 @@ export default Controller.extend({
     let a = this.get('workSum'),
         b = this.get('scolarshipSum'),
         c = this.get('freelanceSum'),
-        d = this.get('incomesSum');
+        d = this.get('sumOfCurrentMonthIncomes');
   
     return {
       work: a/d,

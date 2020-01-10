@@ -17,17 +17,17 @@
         {{#paper-menu position="target-right target" as |menu|}}
           {{#menu.trigger}}
             {{#paper-button onClick=null}}
-              <img src='{{currentUser.picture}}' class="user">
+              <img src={{currentUser.picture}} alt={{currentUser.fullName}} class="user">
             {{/paper-button}}
           {{/menu.trigger}}
 
           {{#menu.content width=2 as |content|}}
-              {{#each users as |user|}}
-                {{#content.menu-item onClick=(action "changeUser" currentUserVariable)}}
-                    <img src={{user.picture}} alt={{user.fullName}} class="user">
-                    <span>{{user.fullName}}</span>
-                {{/content.menu-item}}
-              {{/each}}
+            {{#each users as |user|}}
+              {{#content.menu-item onClick=(action "changeUser" user)}}
+                <img src={{user.picture}} alt={{user.fullName}} class="user">
+                <span>{{user.fullName}}</span>
+              {{/content.menu-item}}
+            {{/each}}
           {{/menu.content}}
         {{/paper-menu}}
       </div>
@@ -38,9 +38,9 @@
 </body>
 
 
-{{currentUser.fullName}}
+{{!-- {{currentUser.fullName}}
 {{currentUser.picture}}
-{{currentUser.darkMode}}
+{{currentUser.darkMode}} --}}
 
 <footer>
   <p>Designed by <b class="accentHeading">@Alex</b></p>

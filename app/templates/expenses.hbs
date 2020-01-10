@@ -94,9 +94,9 @@
           <h3>{{expense.name}}</h3>
           <p>{{expense.amount}} lei</p>
           <p>{{expense.description}}</p>
-          <p>{{moment-format expense.date 'DD/MM/YYYY'}}</p>
+          <p>{{moment-format expense.date "DD/MM/YYYY"}}</p>
         </div>
-        <div align=right class="md-list-item-text">
+        <div align="right" class="md-list-item-text">
 
           {{#paper-menu as |menu|}}
             {{#menu.trigger}}
@@ -106,15 +106,15 @@
             {{/menu.trigger}}
 
             {{#menu.content width=2 as |content|}}
-                {{#content.menu-item onClick=(action "showEditDialogAction" expense)}}
-                  {{paper-icon "edit" class="md-menu-origin"}}
-                  <span class="md-menu-align-target">Edit</span> {{item}}
-                {{/content.menu-item}}
+              {{#content.menu-item onClick=(action "showEditDialogAction" expense)}}
+                {{paper-icon "edit" class="md-menu-origin"}}
+                <span class="md-menu-align-target">Edit</span> {{item}}
+              {{/content.menu-item}}
 
-                {{#content.menu-item onClick=(action "showDeleteDialogAction" expense)}}
-                 {{paper-icon "delete" class="md-menu-origin"}}
-                  <span class="md-menu-align-target">Delete</span> {{item}}
-                {{/content.menu-item}}
+              {{#content.menu-item onClick=(action "showDeleteDialogAction" expense)}}
+                {{paper-icon "delete" class="md-menu-origin"}}
+                <span class="md-menu-align-target">Delete</span> {{item}}
+              {{/content.menu-item}}
             {{/menu.content}}
           {{/paper-menu}}
           

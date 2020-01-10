@@ -11,7 +11,7 @@
     <div class="card">
       <h3>Theme</h3>
 
-      {{#paper-item as |controls|}}
+      {{#paper-item}}
         {{paper-icon "brightness-2"}}
         <p>Darkmode</p>
         <div class="md-secondary-container">
@@ -19,15 +19,15 @@
         </div>
       {{/paper-item}}
 
-      {{#paper-item as |controls|}}
+      {{#paper-item}}
         {{paper-icon "landscape"}}
         <p>Somth</p>
         <div class="md-secondary-container">
-          {{#paper-switch value=darkModeToggle onChange=(action (mut darkModeToggle))}}{{/paper-switch}}
+          {{#paper-switch value=unkown onChange=(action (mut unkown))}}{{/paper-switch}}
         </div>
       {{/paper-item}}
 
-      {{#paper-item as |controls|}}
+      {{#paper-item}}
         {{paper-icon "call-split"}}
         <p>Red flag value</p>
         <div class="flex layout layout-align-center-center slider-container">
@@ -37,9 +37,9 @@
         </div>
       {{/paper-item}}
 
-      {{#paper-item as |controls|}}
+      {{!-- {{#paper-item}}
         {{paper-icon "landscape"}}
-        <p>Accent color <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p>Accent color <span class={{colorStyle}}> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
 
         <div class="flex">
           <div class="layout layout-align-center-center slider-container">
@@ -60,7 +60,7 @@
             {{paper-input type="number" value=color.blue onChange=(action (mut color.blue))}}
           </div>
         </div>
-      {{/paper-item}}
+      {{/paper-item}} --}}
 
     </div>
   </div>

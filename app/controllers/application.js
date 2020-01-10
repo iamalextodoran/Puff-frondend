@@ -20,8 +20,11 @@ export default Controller.extend({
      });
   },
   actions: {
-    changeUser: function(currentUserVariable) {
-      this.set('currentUser', currentUserVariable);
+    changeUser: function(user) {
+      this.set('currentUser', user);
+      this.get('currentUser').save().then( ()=> {
+        this.toggleProperty('currentUser.active')
+      })
     },
   }
 });

@@ -11,11 +11,7 @@ let color = {
 
 export default Controller.extend({
   color,
-  accentColorToggle: true,
-  carryOverEnabled: true,
-  currencyToggle:false,
   dangerValue: 1000,
-  userNames: ['Alex Todoran', 'Munte Vlad', 'David Bautista', 'John Cena'],
 
   colorStyle: computed('color.{red,green,blue}', function() {
     return (`border: 1px solid #333; background: rgb(${this.get('color.red')}, ${this.get('color.green')}, ${this.get('color.blue')})`);
@@ -25,20 +21,18 @@ export default Controller.extend({
     return this.get('store').findAll('user');
   }),
 
-  currentUser: computed('users.length', 'users.@each', function(){
-    return this.store.findRecord('user', 42).then(item => {
-      return item.fullName
-    })
+  currentUser: computed(function() {
+    return this.get('store').findRecord('user', 42)
   }),
 
   actions: {
-    goToUser: function() {
-    },
-    
-    userState: function() {
+    unkown: function() {
     },
 
-    darkModeToggle: function() {  
+    darkModeToggle: function() { 
+      this.get('currentUser').save().then( ()=> {
+        this.set("darkMode", true);
+      })
     }
   }
 });

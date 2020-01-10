@@ -30,9 +30,9 @@ export default Controller.extend({
     return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0);
   }),
   //all time expenses sum
-  expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0);
-  }),
+  // expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
+  //   return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0);
+  // }),
 
   dateNow: computed(function() {
     let today = new Date();
@@ -45,14 +45,14 @@ export default Controller.extend({
     var date = this.get('date');
     var category = this.get('category');
     var description = this.get('description');
-
     var newExpense = this.store.createRecord('transaction', {
       typeOfT: 'expense',
       name: name,
       amount: amount,
       date: new Date(date),
       category: category,
-      description: description
+      description: description,
+      // user: this.get('currentUser')
     });
     return newExpense.save()
   }),
