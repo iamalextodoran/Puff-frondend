@@ -15,15 +15,15 @@
         {{paper-icon "brightness-2"}}
         <p>Darkmode</p>
         <div class="md-secondary-container">
-          {{#paper-switch value=darkModeToggle onChange=(action (mut darkModeToggle))}}{{/paper-switch}}
+          {{#paper-button raised=true onClick=(action "darkModeToggle")}}Toggle it{{/paper-button}}
         </div>
       {{/paper-item}}
 
       {{#paper-item}}
         {{paper-icon "landscape"}}
-        <p>Somth</p>
+        <p>Sombitches</p>
         <div class="md-secondary-container">
-          {{#paper-switch value=unkown onChange=(action (mut unkown))}}{{/paper-switch}}
+          {{!-- {{#paper-switch value=otherAction onChange=(action (mut otherAction))}}{{/paper-switch}} --}}
         </div>
       {{/paper-item}}
 
@@ -36,32 +36,6 @@
           {{paper-input type="number" value=dangerValue onChange=(action (mut dangerValue))}}   
         </div>
       {{/paper-item}}
-
-      {{!-- {{#paper-item}}
-        {{paper-icon "landscape"}}
-        <p>Accent color <span class={{colorStyle}}> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
-
-        <div class="flex">
-          <div class="layout layout-align-center-center slider-container">
-            <p>R</p>
-            {{paper-slider class="flex" min=0 max=255 value=color.red onChange=(action (mut color.red))}}
-            {{paper-input type="number" value=color.red onChange=(action (mut color.red))}}
-          </div>
-
-          <div class="layout layout-align-center-center slider-container">
-            <p>G</p>
-            {{paper-slider class="flex md-accent" min=0 max=255 value=color.green onChange=(action (mut color.green))}}
-            {{paper-input type="number" value=color.green  onChange=(action (mut color.green))}}
-          </div>
-
-          <div class="layout layout-align-center-center slider-container">
-            <p>B</p>
-            {{paper-slider class="flex md-primary" min=0 max=255 value=color.blue onChange=(action (mut color.blue))}}
-            {{paper-input type="number" value=color.blue onChange=(action (mut color.blue))}}
-          </div>
-        </div>
-      {{/paper-item}} --}}
-
     </div>
   </div>
 </div>

@@ -7,7 +7,9 @@ export default Controller.extend({
   }),
 
   selectedUser: computed(function() {
-    return this.get('store').findAll('currentuser')
+    return this.get('store').findAll('currentuser').then(function(user) {
+      return user.get('darkMode');
+    });
   }),
 
   init(){  
@@ -21,7 +23,7 @@ export default Controller.extend({
         document.body.classList.remove("darkMode");
       }
       this.set('currentUser', item);
-     });
+    });
   },
 
   actions: {
