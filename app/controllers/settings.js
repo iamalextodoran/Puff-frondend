@@ -8,12 +8,16 @@ export default Controller.extend({
   darkMode: false,
 
   users: computed(function() {
-    return this.get('store').findAll('user');
+    return this.get('store').peekAll('user');
+  }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
 
   actions: {
     darkModeToggle: function() {
-      this.store.findRecord('user', 42).then(function(user) {
+      this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.toggleProperty('darkMode');
         user.save();
       });

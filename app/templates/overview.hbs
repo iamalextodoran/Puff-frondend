@@ -3,7 +3,7 @@
 
     <div class="layout-row  layout-align-space-between-start container">
       <div>
-        <h1>Hey, {{currentUser.fullName}}</h1>
+        <h1>Hey, {{selectedUser.fullName}}</h1>
         <p>{{if this.isBad "Kinda bad" "You good boii"}}. You've still got <b>{{currentMonthTotalLeftPercentage}} % </b>avalable</p>
       </div>
       <div>
@@ -81,7 +81,7 @@
     <div class="card small">
       <div>
         <h3>Savings</h3>
-        <p>Save smoth</p>
+        <p>Save some</p>
       </div>
       <div align="center">
         <p>Vacation</p>
@@ -157,7 +157,6 @@
               </div>
             {{/paper-item}}
           {{/each}}
-
         </div>
         <div class="flex">
           {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
@@ -214,7 +213,9 @@
 
 
 
-
+          {{#each selectedUser.transactions as |transaction|}}
+            {{transaction.name}}
+          {{/each}}
 
 
 

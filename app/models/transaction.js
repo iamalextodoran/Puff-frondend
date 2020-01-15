@@ -8,6 +8,5 @@ export default Model.extend({
   amount: DS.attr(),
   date: DS.attr(),
   typeOfT: DS.attr(),
-
   user: DS.belongsTo('user')
 });

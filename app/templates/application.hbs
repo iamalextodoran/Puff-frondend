@@ -17,7 +17,7 @@
         {{#paper-menu position="target-right target" as |menu|}}
           {{#menu.trigger}}
             {{#paper-button onClick=null}}
-              <img src={{currentUser.picture}} alt={{currentUser.fullName}} class="user">
+              <img src={{selectedUser.picture}} alt={{selectedUser.fullName}} class="user">
             {{/paper-button}}
           {{/menu.trigger}}
 
@@ -36,7 +36,7 @@
   </div>
   {{outlet}}
 </body>
-{{selectedUser}}
+
 <footer>
   <p>Designed by <b class="accentHeading">@Alex</b></p>
 </footer>

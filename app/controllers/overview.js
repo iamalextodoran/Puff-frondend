@@ -1,9 +1,10 @@
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 /* eslint-disable ember/use-brace-expansion */
-import Controller from '@ember/controller';
+import Controller, {inject as controller} from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
+  application: controller('application'),
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
 
   isBad: computed('currentMonthTotalLeft', function() {
@@ -15,12 +16,20 @@ export default Controller.extend({
     }
   }),
 
-  currentUser: computed(function() {
-    return this.get('store').findRecord('user', 42);
+  // currentUser: computed(function() {
+  //   return this.get('store').findRecord('user', 42);
+  // }),
+
+  users: computed(function() {
+    return this.get('store').peekAll('user');
+  }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
 
   transactions: computed(function() {
-    return this.get('store').findAll('transaction');
+    return this.get('store').findAll('transaction').filterBy('user.id', 42)
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
@@ -159,6 +168,7 @@ export default Controller.extend({
       typeOfT: 'expense',
       name: name,
       amount: amount,
+      user: this.get('selectedUser'),
       date: new Date(date),
       category: category, 
       description: description

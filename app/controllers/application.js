@@ -6,14 +6,19 @@ export default Controller.extend({
     return this.get('store').findAll('user');
   }),
 
-  selectedUser: computed(function() {
-    return this.get('store').findAll('currentuser').then(function(user) {
-      return user.get('darkMode');
-    });
+  // selectedUser: computed(function() {
+  //   return this.get('store').findAll('currentuser').then(function(user) {
+  //     return user.toString()
+  //   });
+  // }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
 
   init(){  
     this._super(...arguments);
+
     let id = 42;
     this.get('store').findRecord('user', id).then(item => {
       if (item.darkMode) {
@@ -31,7 +36,8 @@ export default Controller.extend({
       let now = new Date()
       this.set('currentUser', user);
       this.set('currentUser.selectedAt', now);
-      this.get('currentUser').save()
+      this.get('currentUser').save();
+      location.reload(); //refresh page
     },
   }
 });

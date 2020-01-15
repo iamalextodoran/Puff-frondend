@@ -5,6 +5,13 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptionsForIncome: ['work', 'freelance', 'scolarship'],
+  users: computed(function() {
+    return this.get('store').peekAll('user');
+  }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
+  }),
   
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
@@ -80,6 +87,7 @@ export default Controller.extend({
       amount: amount,
       date: new Date(date),
       category: category,
+      user: this.get('selectedUser'),
     });
     return newIncome.save()
   }),

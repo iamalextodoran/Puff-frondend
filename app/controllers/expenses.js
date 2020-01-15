@@ -5,6 +5,14 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+  users: computed(function() {
+    return this.get('store').peekAll('user');
+  }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
+  }),
+  
   transactions: computed(function() {
     return this.get('store').findAll('transaction');
   }),
@@ -52,7 +60,8 @@ export default Controller.extend({
       date: new Date(date),
       category: category,
       description: description,
-      // user: this.get('currentUser')
+      user: this.get('selectedUser'),
+
     });
     return newExpense.save()
   }),
