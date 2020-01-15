@@ -29,7 +29,7 @@ export default Controller.extend({
   }),
 
   transactions: computed(function() {
-    return this.get('store').findAll('transaction').filterBy('user.id', 42)
+    return this.get('store').findAll('transaction');
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
