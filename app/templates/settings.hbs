@@ -36,7 +36,9 @@
           {{paper-input type="number" value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}   
         </div>
       {{/paper-item}}
-      {{#paper-button raised=true onClick=(action "submit")}}Submit it{{/paper-button}}
+      <div align="right">
+        {{#paper-button raised=true primary=true onClick=(action "submit")}}Submit it{{/paper-button}}
+      </div>
 
     </div>
   </div>
