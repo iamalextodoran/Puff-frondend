@@ -16,10 +16,6 @@ export default Controller.extend({
     }
   }),
 
-  // currentUser: computed(function() {
-  //   return this.get('store').findRecord('user', 42);
-  // }),
-
   users: computed(function() {
     return this.get('store').peekAll('user');
   }),
