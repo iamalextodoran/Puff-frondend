@@ -24,12 +24,12 @@ export default Controller.extend({
     return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
 
-  transactions: computed(function() {
-    return this.get('store').findAll('transaction');
+  transactions: computed('selectedUser', function() {
+    return this.get('selectedUser.transactions');
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').filterBy('typeOfT','expense')
+    return this.get('transactions').filterBy('typeOfT','expense');
   }),
 
   // then filter expenses by the current month

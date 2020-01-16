@@ -15,15 +15,15 @@
         {{paper-icon "brightness-2"}}
         <p>Darkmode</p>
         <div class="md-secondary-container">
-          {{#paper-button raised=true onClick=(action "darkModeToggle")}}Toggle it{{/paper-button}}
+          {{#paper-switch value=selectedUser.darkMode onChange=(action (mut selectedUser.darkMode))}}{{/paper-switch}}
         </div>
       {{/paper-item}}
 
       {{#paper-item}}
         {{paper-icon "landscape"}}
-        <p>Sombitches</p>
+        <p>Some action</p>
         <div class="md-secondary-container">
-          {{!-- {{#paper-switch value=otherAction onChange=(action (mut otherAction))}}{{/paper-switch}} --}}
+          {{#paper-switch value=otherAction onChange=(action (mut otherAction))}}{{/paper-switch}}
         </div>
       {{/paper-item}}
 
@@ -32,10 +32,12 @@
         <p>Red flag value</p>
         <div class="flex layout layout-align-center-center slider-container">
           <p>V</p>
-          {{paper-slider class="flex" min=0 max=3000 value=dangerValue onChange=(action (mut dangerValue))}}
-          {{paper-input type="number" value=dangerValue onChange=(action (mut dangerValue))}}   
+          {{paper-slider class="flex" min=0 max=5000 value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}
+          {{paper-input type="number" value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}   
         </div>
       {{/paper-item}}
+      {{#paper-button raised=true onClick=(action "submit")}}Submit it{{/paper-button}}
+
     </div>
   </div>
 </div>

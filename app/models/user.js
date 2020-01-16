@@ -6,6 +6,7 @@ export default Model.extend({
   picture: DS.attr(),
   darkMode: DS.attr(),
   selectedAt: DS.attr('date'),
+  danger: DS.attr(),
   
   transactions: DS.hasMany('transaction')
 });

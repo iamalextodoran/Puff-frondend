@@ -5,5 +5,6 @@ export default Model.extend({
   fullName: DS.attr(),
   picture: DS.attr(),
   darkMode: DS.attr(),
-  selectedAt: DS.attr('date')
+  selectedAt: DS.attr('date'),
+  danger: DS.attr()
 });

@@ -5,6 +5,7 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+  
   users: computed(function() {
     return this.get('store').peekAll('user');
   }),
@@ -12,9 +13,9 @@ export default Controller.extend({
   selectedUser: computed('users.length', function() {
     return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
-  
-  transactions: computed(function() {
-    return this.get('store').findAll('transaction');
+
+  transactions: computed('selectedUser', function() {
+    return this.get('selectedUser.transactions');
   }),
 
   expenses: computed('transactions.length', 'transactions.@each.amount', function() {

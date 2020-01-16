@@ -4,9 +4,6 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  dangerValue: 1000,
-  darkMode: false,
-
   users: computed(function() {
     return this.get('store').peekAll('user');
   }),
@@ -16,12 +13,11 @@ export default Controller.extend({
   }),
 
   actions: {
-    darkModeToggle: function() {
+    submit: function() {
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
-        user.toggleProperty('darkMode');
         user.save();
       });
       location.reload();
-    }
+    },
   }
 });
