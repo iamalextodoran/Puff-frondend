@@ -7,9 +7,10 @@ export default Controller.extend({
   application: controller('application'),
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
 
-  isBad: computed('currentMonthTotalLeft', function() {
+  isBad: computed('currentMonthTotalLeft', 'selectedUser', function() {
     let total = this.get('currentMonthTotalLeft');
-    if (total < 1000) {
+    let dangerValue = this.get('selectedUser.danger');
+    if (total < dangerValue) {
       return true;
     } else {
       return false;
