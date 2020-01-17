@@ -20,7 +20,6 @@ export default Controller.extend({
     let id = 42;
     this.get('store').findRecord('user', id).then(item => {
       if (item.darkMode) {
-        this.set('darkMode', item.darkMode);
         document.body.classList.add("darkMode");
       } else {
         document.body.classList.remove("darkMode");
