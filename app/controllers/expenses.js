@@ -6,15 +6,17 @@ import { computed } from "@ember/object";
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.get('expensesFetch');
+    this.get('expensesFetched');
   },
-  
-  expensesFetch: computed(async function() {
+  expensesWithFetch: null, 
+  expensesFetched: computed(async function() {
     return fetch('transactions/check')
       .then((response) => {
         return response.json();
       }).then(item => {
-        return item.name;
+        // eslint-disable-next-line ember/no-side-effects
+        this.set('expenses', item.allExpenses);
+        return item.allExpenses;
       });
   }),
 
