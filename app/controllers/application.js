@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-side-effects */
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 

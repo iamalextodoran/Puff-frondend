@@ -71,10 +71,10 @@ export default Controller.extend({
     }
   }),
   
-  dateNow: computed(function() {
-    let today = new Date();
-    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  }),
+  // dateNow: computed(function() {
+  //   let today = new Date();
+  //   return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  // }),
 
   createIncome: computed(function() {
     var name = this.get('name');

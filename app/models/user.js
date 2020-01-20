@@ -8,6 +8,7 @@ export default Model.extend({
   selectedAt: DS.attr('date'),
   danger: DS.attr(),
   totalExpenses: DS.attr(),
+  totalIncomes: DS.attr(),
   
   transactions: DS.hasMany('transaction')
 });

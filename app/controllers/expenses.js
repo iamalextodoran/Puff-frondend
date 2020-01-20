@@ -10,17 +10,15 @@ export default Controller.extend({
     this.get('expensesFetched');
   },
   expensesWithFetch: null, 
-  incomesWithFetch: null, 
   currentMonthExpensesWithFetch: null,
   expensesFetched: computed(async function() {
-    return fetch('transactions/check')
+    return fetch('transactions/all_expenses')
       .then((response) => {
         return response.json();
       }).then(item => {
-        this.set('currentMonthExpensesWithFetch', item.thisMonthExpenses)
-        this.set('thisMonthExpensesTotalWithFetch', item.thisMonthExpensesTotal)
+        this.set('currentMonthExpensesWithFetch', item.thisMonthExpenses);
         this.set('expensesWithFetch', item.allExpenses);
-        return item;
+        return item.thisMonthExpenses;
       });
   }),
 
@@ -63,10 +61,10 @@ export default Controller.extend({
   //   return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0);
   // }),
 
-  dateNow: computed(function() {
-    let today = new Date();
-    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  }),
+  // dateNow: computed(function() {
+  //   let today = new Date();
+  //   return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  // }),
 
   createExpense: computed(function() {
     var name = this.get('name');
@@ -147,7 +145,6 @@ export default Controller.extend({
     closeEditDialogAction() {
       this.set("showEditDialog", false);
     },
-
 
 
     deleteButton() {
