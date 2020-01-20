@@ -4,6 +4,20 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
+  init() {
+    this._super(...arguments);
+    this.get('expensesFetch');
+  },
+  
+  expensesFetch: computed(async function() {
+    return fetch('transactions/check')
+      .then((response) => {
+        return response.json();
+      }).then(item => {
+        return item.name;
+      });
+  }),
+
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
   
   users: computed(function() {

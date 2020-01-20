@@ -67,6 +67,12 @@
         {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
       </div>
       {{#paper-button raised=true fab=true accent=true onClick=(action "addExpense")}}{{paper-icon "add"}}{{/paper-button}}
+
+
+      <span class="test">{{expensesFetch}}</span>
+
+
+
             
       {{#if addExpenseToast}}
         {{#paper-toast duration=3000 capsule=true onClose=(action "closeAddToast") as |toast|}}
