@@ -15,7 +15,7 @@ export default Controller.extend({
         return response.json();
       }).then(item => {
         // eslint-disable-next-line ember/no-side-effects
-        this.set('expenses', item.allExpenses);
+        this.set('expensesWithFetch', item.allExpenses);
         return item.allExpenses;
       });
   }),
