@@ -7,6 +7,7 @@ export default Model.extend({
   darkMode: DS.attr(),
   selectedAt: DS.attr('date'),
   danger: DS.attr(),
+  totalExpenses: DS.attr(),
   
   transactions: DS.hasMany('transaction')
 });

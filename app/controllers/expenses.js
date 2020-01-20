@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-side-effects */
 /* eslint-disable ember/use-brace-expansion */
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Controller from '@ember/controller';
@@ -9,14 +10,17 @@ export default Controller.extend({
     this.get('expensesFetched');
   },
   expensesWithFetch: null, 
+  incomesWithFetch: null, 
+  currentMonthExpensesWithFetch: null,
   expensesFetched: computed(async function() {
     return fetch('transactions/check')
       .then((response) => {
         return response.json();
       }).then(item => {
-        // eslint-disable-next-line ember/no-side-effects
-        this.set('expenses', item.allExpenses);
-        return item.allExpenses;
+        this.set('currentMonthExpensesWithFetch', item.thisMonthExpenses)
+        this.set('thisMonthExpensesTotalWithFetch', item.thisMonthExpensesTotal)
+        this.set('expensesWithFetch', item.allExpenses);
+        return item;
       });
   }),
 
