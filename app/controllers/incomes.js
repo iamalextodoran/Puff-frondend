@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-side-effects */
 /* eslint-disable ember/use-brace-expansion */
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Controller from '@ember/controller';

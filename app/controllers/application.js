@@ -3,6 +3,7 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
+  currentId: 42,
   users: computed(function() {
     return this.get('store').findAll('user');
   }),
@@ -18,7 +19,7 @@ export default Controller.extend({
   init(){  
     this._super(...arguments);
 
-    let id = 42;
+    let id = this.get('currentId');
     this.get('store').findRecord('user', id).then(item => {
       if (item.darkMode) {
         document.body.classList.add("darkMode");
@@ -32,6 +33,7 @@ export default Controller.extend({
     changeUser: function(user) {
       let now = new Date()
       this.set('currentUser', user);
+      this.set('currentId', user.id);
       this.set('currentUser.selectedAt', now);
       this.get('currentUser').save();
       location.reload(); //refresh page
