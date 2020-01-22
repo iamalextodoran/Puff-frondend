@@ -1,10 +1,9 @@
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 /* eslint-disable ember/use-brace-expansion */
-import Controller, {inject as controller} from '@ember/controller';
+import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  application: controller('application'),
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
 
   isBad: computed('currentMonthTotalLeft', 'selectedUser', function() {
