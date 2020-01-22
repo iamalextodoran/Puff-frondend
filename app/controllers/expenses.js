@@ -16,15 +16,8 @@ export default Controller.extend({
       .then((response) => {
         return response.json();
       }).then(item => {
-<<<<<<< HEAD
-        this.set('currentMonthExpensesWithFetch', item.thisMonthExpenses);
-        this.set('expensesWithFetch', item.allExpenses);
-        return item.thisMonthExpenses;
-=======
-        // eslint-disable-next-line ember/no-side-effects
         this.set('expensesWithFetch', item.allExpenses);
         return item.allExpenses;
->>>>>>> e3af19c3421d88324c0623f3b63dd67adc69ff81
       });
   }),
 
