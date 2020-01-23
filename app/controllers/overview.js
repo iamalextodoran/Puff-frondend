@@ -116,7 +116,7 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  priorityOptions: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', 'expData', function() {
+  expensesChart: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', 'expData', function() {
     return {
       datasets: [
         {

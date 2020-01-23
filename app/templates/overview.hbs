@@ -4,7 +4,7 @@
     <div class="layout-row  layout-align-space-between-start container">
       <div>
         <h1 style="font-weight:lighter">Hey, <span style="font-weight:bold">{{selectedUser.fullName}}</span></h1>
-        <p>{{if this.isBad "Ohh shit, slow down boy" "Keep up the good work"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>available</p>
+        <p>{{if this.isBad "Ohh shit" "Keep it up"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>available</p>
       </div>
       <div>
         <h1 class={{if this.isBad "red" "green"}}>{{currentMonthTotalLeft}} lei</h1>
@@ -22,7 +22,7 @@
 
       <h3>Spendings</h3>
       <p>this month</p>
-      {{ember-chart type="doughnut" data=priorityOptions}}
+      {{ember-chart type="doughnut" data=expensesChart}}
       {{#paper-button raised=true fab=true accent=true onClick=(action "addQuickExpense")}}{{paper-icon "add"}}{{/paper-button}}
 
     </div>
@@ -147,12 +147,3 @@
 {{/if}}
 
 {{outlet}}
-
-          {{!-- 
-          {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
-          {{paper-icon "eco" size=30 class="md-avatar-icon"}}
-          {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
-          {{paper-icon "flight" size=30 class="md-avatar-icon"}}
-          {{paper-icon "payment" size=30 class="md-avatar-icon"}}
-          {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}} 
-          --}}

@@ -6,17 +6,19 @@ $warn: "pink";
 h1 {
   font-size: 24px;
   color: rgba(0, 0, 0, 0.9);
+  line-height: 50%;
 }
 
 h3 {
   font-size: 20px;
-  line-height: 75%;
+  line-height: 50%;
   color: rgba(0, 0, 0, 0.9);
 }
 
 p {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
+  line-height: 50%;
 }
 
 .green {
