@@ -1,10 +1,10 @@
 <div class="layout-row layout-xs-column">
-  <div class="flex-50">
+  <div class="flex">
 
     <div class="layout-row  layout-align-space-between-start container">
       <div>
         <h1 style="font-weight:lighter">Hey, <span style="font-weight:bold">{{selectedUser.fullName}}</span></h1>
-        <p>{{if this.isBad "Ohh, it's bad, you've spent more then you wanted to" "Keep up the good work"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>available</p>
+        <p>{{if this.isBad "Ohh shit, slow down boy" "Keep up the good work"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>available</p>
       </div>
       <div>
         <h1 class={{if this.isBad "red" "green"}}>{{currentMonthTotalLeft}} lei</h1>
@@ -14,65 +14,17 @@
 
   </div>
 </div>
+
 <div class="layout-row layout-xs-column">
 
   <div class="flex container">
     <div class="card">
+
       <h3>Spendings</h3>
       <p>this month</p>
       {{ember-chart type="doughnut" data=priorityOptions}}
       {{#paper-button raised=true fab=true accent=true onClick=(action "addQuickExpense")}}{{paper-icon "add"}}{{/paper-button}}
 
-      {{#if showPromptAddExpense}}
-        {{#paper-dialog fullscreen=true escapeToClose=true clickOutsideToClose=true onClose=(action "closePromptDialog") origin=dialogOrigin}}
-
-          {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
-            <div class="layout layout-sm-column">
-              {{paper-input 
-                label="Name" 
-                value=name 
-                required=true
-                errorMessages=(hash
-                  required="Name is required"
-                ) 
-                onChange=(action (mut name))}}
-
-              {{paper-input 
-                label="Amount" 
-                type="number" 
-                value=amount 
-                required=true
-                min=1
-                errorMessages=(hash
-                  required="Amount is required"
-                ) 
-                onChange=(action (mut amount))}}
-
-              {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
-              {{#paper-select
-                disabled=disableSelect
-                label="Category"
-                options=categoryOptions
-                selected=category
-                required=true
-                errorMessages=(hash
-                  required="Choose"
-                ) 
-                onChange=(action (mut category))
-                as |categoryOption|}}
-                {{categoryOption}}
-              {{/paper-select}}
-              {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
-            </div>
-          {{/paper-dialog-content}}
-
-          {{#paper-dialog-actions class="layout-row"}}
-            {{#paper-button onClick=(action "closePromptDialog")}}{{paper-icon "cancel" size=18}} Cancel{{/paper-button}}
-            {{#paper-button onClick=(action "addExpense")}}{{paper-icon "add" size=18}} Add expense{{/paper-button}}
-          {{/paper-dialog-actions}}
-
-        {{/paper-dialog}}
-      {{/if}}
     </div>
 
   </div>
@@ -85,14 +37,14 @@
       </div>
       <div align="center">
         <p>Vacation</p>
-        {{ember-progress-bar progress=barValue.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=savedMoney.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Emergency</p>
-        {{ember-progress-bar progress=barValue.saving options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=savedMoney.saving options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="right">
-        <h1 class="accentHeading">{{allSavingsValue}} lei</h1>
+        <h1 class="accentHeading">{{savedMoney.total}} lei</h1>
         <p>total</p>
       </div>
     </div>
@@ -102,107 +54,19 @@
       <p>Stop it!</p>
 
       <div class="layout-row flex">
-        <div class="flex">
-          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{foodSorted.name}}</h3>
-              <p>{{foodSorted.amount}}</p>
-            </div>
-          {{/paper-item}}
+        <div class="flex layout-row layout-align-space-between-center">
 
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{transportationSorted.name}}</h3>
-              <p>{{transportationSorted.amount}}</p>
-            </div>
-          {{/paper-item}} --}}
-
-
-          {{#each categories1 as |category|}}
-            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
+          {{!-- {{#each topSpendings as |entry|}}
+            {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" entry)}}
               {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
               <div class="md-list-item-text">
-                <h3>{{category.name}}</h3>
-                <p>{{category.amount}}</p>
+                <h3 style="font-weight: bolder;">{{entry.category}}</h3>
+                <h3>{{entry.name}}</h3>
+                <p>{{entry.amount}}</p>
               </div>
             {{/paper-item}}
-          {{/each}}
-        </div>
-      
-        <div class="flex">
-          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "flight" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{travelSorted.name}}</h3>
-              <p>{{travelSorted.amount}}</p>
-            </div>
-          {{/paper-item}}
+          {{/each}} --}}
 
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "payment" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{utilitiesSorted.name}}</h3>
-              <p>{{utilitiesSorted.amount}}</p>
-            </div>
-          {{/paper-item}} --}}
-
-          {{#each categories2 as |category|}}
-            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
-              {{paper-icon "payment" size=30 class="md-avatar-icon"}}
-              <div class="md-list-item-text">
-                <h3>{{category.name}}</h3>
-                <p>{{category.amount}}</p>
-              </div>
-            {{/paper-item}}
-          {{/each}}
-        </div>
-        <div class="flex">
-          {{!-- {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{medicalSorted.name}}</h3>
-              <p>{{medicalSorted.amount}}</p>
-            </div>
-          {{/paper-item}}
-
-          {{#paper-item class="md-2-line" onClick=(action "goToPerson" item)}}
-            {{paper-icon "eco" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{savingsSorted.name}}</h3>
-              <p>{{savingsSorted.amount}}</p>
-            </div>
-          {{/paper-item}} --}}
-
-          {{#each categories3 as |category|}}
-            {{#paper-item class="md-2-line" onClick=(action "goToPerson" category)}}
-              {{paper-icon "eco" size=30 class="md-avatar-icon"}}
-              <div class="md-list-item-text">
-                <h3>{{category.name}}</h3>
-                <p>{{category.amount}}</p>
-              </div>
-            {{/paper-item}}
-          {{/each}}
-
-          {{#if showExpenseDialog}}
-            {{#paper-dialog fullscreen=fullscreen clickOutsideToClose=true onClose=(action "closeAnimatedDialog") openFrom="#paper-dialog-demo" closeTo="#bottom-of-card"}}
-
-              {{#paper-dialog-content}}
-                <h2 class="md-title">{{currentTopExpense.name}}</h2>
-                <p>Amount paid: <b>{{currentTopExpense.amount}}</b></p>
-                <p>When: <b>{{moment-format currentTopExpense.date "DD/MM/YYYY"}}</b></p>
-                <p>Description:</p> 
-                <p><b>{{currentTopExpense.description}}</b></p>
-              {{/paper-dialog-content}}
-
-              {{#paper-dialog-actions class="layout-row"}}
-                <span class="flex"></span>
-                {{#paper-button primary=true onClick=(action "closeAnimatedDialog")}}Okay!{{/paper-button}}
-              {{/paper-dialog-actions}}
-
-            {{/paper-dialog}}
-          {{/if}}
         </div>
 
       </div>
@@ -211,12 +75,84 @@
   </div>
 </div>
 
+{{#if showExpenseDialog}}
+  {{#paper-dialog fullscreen=fullscreen clickOutsideToClose=true onClose=(action "closeAnimatedDialog") openFrom="#paper-dialog-demo" closeTo="#bottom-of-card"}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">{{currentTopExpense.name}}</h2>
+      <p>Amount paid: <b>{{currentTopExpense.amount}}</b></p>
+      <p>When: <b>{{moment-format currentTopExpense.date "DD/MM/YYYY"}}</b></p>
+      <p>Description:</p> 
+      <p><b>{{currentTopExpense.description}}</b></p>
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closeAnimatedDialog")}}Okay!{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
 
 
-          {{!-- {{#each selectedUser.transactions as |transaction|}}
-            {{transaction.name}}
-          {{/each}} --}}
+{{#if showPromptAddExpense}}
+  {{#paper-dialog fullscreen=true escapeToClose=true clickOutsideToClose=true onClose=(action "closePromptDialog") origin=dialogOrigin}}
 
+    {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
+      <div class="layout layout-sm-column">
+        {{paper-input 
+          label="Name" 
+          value=name 
+          required=true
+          errorMessages=(hash
+            required="Name is required"
+          ) 
+          onChange=(action (mut name))}}
 
+        {{paper-input 
+          label="Amount" 
+          type="number" 
+          value=amount 
+          required=true
+          min=1
+          errorMessages=(hash
+            required="Amount is required"
+          ) 
+          onChange=(action (mut amount))}}
+
+        {{paper-input label="Submission date" type="date" value=date onChange=(action (mut date))}}
+        {{#paper-select
+          disabled=disableSelect
+          label="Category"
+          options=categoryOptions
+          selected=category
+          required=true
+          errorMessages=(hash
+            required="Choose"
+          ) 
+          onChange=(action (mut category))
+          as |categoryOption|}}
+          {{categoryOption}}
+        {{/paper-select}}
+        {{paper-input textarea=true block=true label="Description" value=description onChange=(action (mut description))}}
+      </div>
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      {{#paper-button onClick=(action "closePromptDialog")}}{{paper-icon "cancel" size=18}} Cancel{{/paper-button}}
+      {{#paper-button onClick=(action "addExpense")}}{{paper-icon "add" size=18}} Add expense{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}
 
 {{outlet}}
+
+          {{!-- 
+          {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
+          {{paper-icon "eco" size=30 class="md-avatar-icon"}}
+          {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
+          {{paper-icon "flight" size=30 class="md-avatar-icon"}}
+          {{paper-icon "payment" size=30 class="md-avatar-icon"}}
+          {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}} 
+          --}}

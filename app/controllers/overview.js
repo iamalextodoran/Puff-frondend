@@ -86,72 +86,16 @@ export default Controller.extend({
     return this.get('currentMonthExpenses').sortBy('amount').reverse()
   }),
 
-// categories returning max amount spent and name
-  foodSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','food').objectAt(0)
-  }),
-
-  savingsSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','savings').objectAt(0)
-  }),
-
-  travelSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','travel').objectAt(0)
-  }),
-
-  transportationSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','transportation').objectAt(0)
-  }),
-
-  utilitiesSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','utilities').objectAt(0)
-  }),
-  medicalSorted: computed('expensesSorted',function(){
-    return this.get('expensesSorted').filterBy('category','medical').objectAt(0)
-  }),
-
-  categories1: computed('foodSorted', 'savingsSorted', function(){
+  topSpendings: computed('expensesSorted',function(){
     return [
-      this.get('foodSorted'),
-      this.get('savingsSorted'),
-  ]
+      this.get('expensesSorted').filterBy('category','food').objectAt(0),
+      this.get('expensesSorted').filterBy('category','savings').objectAt(0),
+      this.get('expensesSorted').filterBy('category','travel').objectAt(0),
+      // this.get('expensesSorted').filterBy('category','transportation').objectAt(0),
+      // this.get('expensesSorted').filterBy('category','utilities').objectAt(0),
+      // this.get('expensesSorted').filterBy('category','medical').objectAt(0)
+    ]
   }),
-
-  categories2: computed('foodSorted', 'savingsSorted', function(){
-    return [
-      this.get('travelSorted'),
-      this.get('transportationSorted')
-  ]
-  }),
-
-  categories3: computed('foodSorted', 'savingsSorted', function(){
-    return [
-      this.get('utilitiesSorted'),
-      this.get('medicalSorted')
-  ]
-  }),
-
-  //expenses and incomes sum
-  // expenseSum: computed('transactions.length', 'transactions.@each.amount', function() {
-  //   return this.get('expenses').mapBy('amount').reduce((a, b) => a + b, 0)
-  // }),
-  
-  // incomeSum: computed('transactions.length', 'transactions.@each.amount', function() {
-  //   return this.get('incomes').mapBy('amount').reduce((a, b) => a + b, 0)
-  // }),
-  //savings and travel sums saved for bar use as an object
-  savingSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0);
-  }),
-
-  travelSum: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0);
-  }),
-
-  // dateNow: computed(function() {
-  //   let today = new Date();
-  //   return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  // }),
 
   createExpense: computed(function() {
     var name = this.get('name');
@@ -172,22 +116,18 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  expData: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', function(){
-    return {
-      food: this.get('currentMonthExpenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
-      savings: this.get('currentMonthExpenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
-      travel: this.get('currentMonthExpenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
-      transportation: this.get('currentMonthExpenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
-      utilities: this.get('currentMonthExpenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
-      medical: this.get('currentMonthExpenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
-    }
-  }),
-
-  priorityOptions: computed('expData', function() {
+  priorityOptions: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', 'expData', function() {
     return {
       datasets: [
         {
-          data: [this.get('expData.food'), this.get('expData.travel'), this.get('expData.savings'), this.get('expData.transportation'), this.get('expData.utilities'), this.get('expData.medical')],
+          data: [
+          this.get('currentMonthExpenses').filterBy('category','food').mapBy('amount').reduce((a, b) => a + b, 0),
+          this.get('currentMonthExpenses').filterBy('category','savings').mapBy('amount').reduce((a, b) => a + b, 0),
+          this.get('currentMonthExpenses').filterBy('category','travel').mapBy('amount').reduce((a, b) => a + b, 0),
+          this.get('currentMonthExpenses').filterBy('category','transportation').mapBy('amount').reduce((a, b) => a + b, 0),
+          this.get('currentMonthExpenses').filterBy('category','utilities').mapBy('amount').reduce((a, b) => a + b, 0),
+          this.get('currentMonthExpenses').filterBy('category','medical').mapBy('amount').reduce((a, b) => a + b, 0)
+          ],
           backgroundColor: [
             'rgba(255, 99, 132)',
             'rgba(54, 162, 235)',
@@ -212,17 +152,14 @@ export default Controller.extend({
     };
   }),
 
-  allSavingsValue: computed('savingSum', 'travelSum', function() {
-    return this.get('savingSum') + this.get('travelSum')
-  }),
-
-  barValue: computed('allSavingsValue', 'savingSum', 'travelSum', function() {
-    let a = this.get('savingSum'),
-        b = this.get('travelSum'),
-        c = this.get('allSavingsValue');
+  savedMoney: computed('expenses', function() {
+    let a = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0),
+        b = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0),
+        c = a+b;
     return {
       saving: a/c,
-      travel: b/c
+      travel: b/c,
+      total: c
     }
   }),
   currentTopExpense: computed(function() {
@@ -230,7 +167,7 @@ export default Controller.extend({
   }),
 
   actions: {
-    goToPerson: function(item) {
+    showExpenseDetails: function(item) {
       this.set('currentTopExpense', item)
       this.set('showExpenseDialog', true);
     },

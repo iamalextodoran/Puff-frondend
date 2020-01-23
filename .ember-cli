@@ -1,4 +1,4 @@
 {
   "disableAnalytics": false,
-  "proxy": "http://localhost:3000"
+  "proxy": "http://192.168.1.47:3000"
 }

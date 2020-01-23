@@ -6,19 +6,17 @@ $warn: "pink";
 h1 {
   font-size: 24px;
   color: rgba(0, 0, 0, 0.9);
-  line-height: 75%;
 }
 
 h3 {
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.9);
   line-height: 75%;
+  color: rgba(0, 0, 0, 0.9);
 }
 
 p {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
-  line-height: 75%;
 }
 
 .green {
@@ -34,14 +32,19 @@ p {
 }
 
 html {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.logo {
+  width: 188px;
+  height: 56px;
+  margin-left: -17px;
 }
 
 .card {
   background-color: rgba(0, 0, 0, 0.04);
   padding: 15px;
-  min-height: 240px;
+  min-height: 247px;
   margin-bottom: 25px;
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -54,10 +57,26 @@ footer {
   padding: 15px;
 }
 
-.user {
+.user{
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  margin-top: 10px;
+}
+.userSmallMenu{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: 0px;
+}
+.smallMenu {
+  display: none;
+  margin-right: -43px;
+}
+
+.bigMenu {
+  display: block;
+  margin-right: -32px;
 }
 
 .darkMode {
@@ -91,5 +110,21 @@ footer {
 
   .accentHeading {
     color:  purple;
+  }
+}
+@media (max-width: 599px) {
+  .small {
+    margin-left: 0px;
+  }
+}
+@media (max-width: 770px) {
+  .bigMenu {
+    display: none;
+  } 
+  .smallMenu {
+    display: block;
+  }
+  .user {
+    margin-top: 0px;
   }
 }

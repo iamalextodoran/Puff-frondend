@@ -138,7 +138,6 @@
         {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
           <div class="layout layout-sm-column">
             {{paper-input label="Name" placeholder=currentExpense.name value=currentExpense.name onChange=(action (mut currentExpense.name))}} 
-            {{!-- value sau placeholder --}}
             {{paper-input label="Amount" type="number" value=currentExpense.amount onChange=(action (mut currentExpense.amount))}}
             {{paper-input label="Submission date" type="date" value=currentExpense.date onChange=(action (mut currentExpense.date))}}
             {{#paper-select

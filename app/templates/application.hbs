@@ -1,13 +1,13 @@
 <body>
-  <div class="layout-row layout-xs-column">
+  <div class="layout-row  layout-align-space-between-center">
 
     <div class="flex">
       <a href="overview">
-        <img src= {{if selectedUser.darkMode "assets/images/logo-white.png" "assets/images/logo-black.png"}} alt="theme" width="188px" height="56px">
+        <img class="logo" src= {{if selectedUser.darkMode "assets/images/logo-white.png" "assets/images/logo-black.png"}} alt="theme">
       </a>
     </div>
 
-    <div class="flex">
+    <div class="bigMenu">
       <div class="layout-row layout-align-end-center">
         {{#current-route-button route="overview"}}Overview{{/current-route-button}}
         {{#current-route-button route="incomes"}}Incomes{{/current-route-button}}
@@ -24,13 +24,47 @@
           {{#menu.content width=2 as |content|}}
             {{#each users as |user|}}
               {{#content.menu-item onClick=(action "changeUser" user)}}
-                <img src={{user.picture}} alt={{user.fullName}} class="user">
+                <img src={{user.picture}} alt={{user.fullName}} class="userSmallMenu">
                 <span>{{user.fullName}}</span>
               {{/content.menu-item}}
             {{/each}}
           {{/menu.content}}
         {{/paper-menu}}
       </div>
+    </div>
+
+    <div class="smallMenu">
+      {{#paper-menu position="target-right target" as |smallMenu|}}
+          {{#smallMenu.trigger}}
+            {{#paper-button onClick=null}}
+              {{paper-icon "menu" class="md-menu-origin"}}
+            {{/paper-button}}
+          {{/smallMenu.trigger}}
+
+          {{#smallMenu.content width=2 as |content|}}
+            {{#current-route-button route="overview"}}Overview{{/current-route-button}}
+            {{#current-route-button route="incomes"}}Incomes{{/current-route-button}}
+            {{#current-route-button route="expenses"}}Expenses{{/current-route-button}}
+            {{#current-route-button route="settings"}}Settings{{/current-route-button}}
+            {{#paper-menu position="target-right target" as |menu|}}
+              {{#menu.trigger}}
+                {{#paper-button onClick=null}}
+                  <img src={{selectedUser.picture}} alt={{selectedUser.fullName}} class="user">
+                {{/paper-button}}
+              {{/menu.trigger}}
+
+              {{#menu.content width=2 as |content|}}
+                {{#each users as |user|}}
+                  {{#content.menu-item onClick=(action "changeUser" user)}}
+                    <img src={{user.picture}} alt={{user.fullName}} class="userSmallMenu">
+                    <span>{{user.fullName}}</span>
+                  {{/content.menu-item}}
+                {{/each}}
+              {{/menu.content}}
+            {{/paper-menu}}
+
+          {{/smallMenu.content}}
+        {{/paper-menu}}
     </div>
 
   </div>
