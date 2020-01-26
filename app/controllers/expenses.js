@@ -75,7 +75,7 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  expensesChart: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', 'expData', function() {
+  expensesChart: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', function() {
     return {
       datasets: [
         {
