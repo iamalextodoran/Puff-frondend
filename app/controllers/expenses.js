@@ -47,13 +47,8 @@ export default Controller.extend({
   }),
 
   // now map all of this month's expenses by their amounts:
-  currentMonthExpenseAmounts: computed('currentMonthExpenses', function() {
-    return this.get('currentMonthExpenses').mapBy('amount');
-  }),
-
-  // now sum all of the current month's expense amounts:
-  sumOfCurrentMonthExpenses: computed('currentMonthExpenseAmounts', function() {
-    return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0);
+  sumOfCurrentMonthExpenses: computed('currentMonthExpenses', function() {
+    return this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
   }),
 
   createExpense: computed(function() {
