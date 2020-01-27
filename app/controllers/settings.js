@@ -17,6 +17,7 @@ export default Controller.extend({
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.save();
       });
+      
       location.reload();
     },
   }

@@ -46,7 +46,6 @@ export default Controller.extend({
     return this.get('transactions').filterBy('typeOfT','income')
   }),
 
-  // then filter expenses by the current month
   currentMonthIncomes: computed('incomes', function() {
     return this.get('incomes').filter(incomes => {
       return new Date(incomes.get('date')).getMonth() === new Date().getMonth();

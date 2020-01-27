@@ -34,19 +34,19 @@ export default Controller.extend({
   //   return this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
   // }),
 
-  incomesTotal: computed('currentMonthIncomes', function() {
-    let a = this.get('currentMonthIncomes').filterBy('category', 'work').mapBy('amount').reduce((a, b) => a + b, 0),
-        b = this.get('currentMonthIncomes').filterBy('category', 'scolarship').mapBy('amount').reduce((a, b) => a + b, 0),
-        c = this.get('currentMonthIncomes').filterBy('category', 'freelance').mapBy('amount').reduce((a, b) => a + b, 0),
-        d = this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
+  // incomesTotal: computed('currentMonthIncomes', function() {
+  //   let a = this.get('currentMonthIncomes').filterBy('category', 'work').mapBy('amount').reduce((a, b) => a + b, 0),
+  //       b = this.get('currentMonthIncomes').filterBy('category', 'scolarship').mapBy('amount').reduce((a, b) => a + b, 0),
+  //       c = this.get('currentMonthIncomes').filterBy('category', 'freelance').mapBy('amount').reduce((a, b) => a + b, 0),
+  //       d = this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
   
-    return {
-      work: a/d,
-      scolarship: b/d,
-      freelance: c/d,
-      total: d
-    }
-  }),
+  //   return {
+  //     work: a/d,
+  //     scolarship: b/d,
+  //     freelance: c/d,
+  //     total: d
+  //   }
+  // }),
 
   createIncome: computed(function() {
     var name = this.get('name');

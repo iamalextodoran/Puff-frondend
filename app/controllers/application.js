@@ -33,6 +33,7 @@ export default Controller.extend({
       this.set('currentUser', user);
       this.set('currentUser.selectedAt', now);
       this.get('currentUser').save();
+      
       location.reload(); //refresh page
     },
   }

@@ -46,10 +46,6 @@ export default Controller.extend({
     });
   }),
 
-  // sumOfCurrentMonthExpenses: computed('currentMonthExpenses', function() {
-  //   return this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
-  // }),
-
   createExpense: computed(function() {
     var name = this.get('name');
     var amount = this.get('amount');
