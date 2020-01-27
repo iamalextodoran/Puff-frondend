@@ -6,8 +6,11 @@ import { computed } from "@ember/object";
 export default Controller.extend({
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
 
-  isBad: computed('currentMonthTotalLeft', 'selectedUser', function() {
-    let total = this.get('currentMonthTotalLeft');
+  isBad: computed('currentMonthIncomes', 'currentMonthExpenses', 'selectedUser', function() {
+    let incomes = this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
+    let expenses = this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
+    let total = incomes-expenses;
+
     let dangerValue = this.get('selectedUser.danger');
     if (total < dangerValue) {
       return true;
@@ -39,16 +42,6 @@ export default Controller.extend({
     });
   }),
 
-  // now map all of this month's expenses by their amounts:
-  currentMonthExpenseAmounts: computed('currentMonthExpenses', function() {
-    return this.get('currentMonthExpenses').mapBy('amount');
-  }),
-
-  // now sum all of the current month's expense amounts:
-  sumOfCurrentMonthExpenses: computed('currentMonthExpenseAmounts', function() {
-    return this.get('currentMonthExpenseAmounts').reduce((a, b) => a + b, 0);
-  }),
-
   incomes: computed('transactions.length', 'transactions.@each.amount', function() {
     return this.get('transactions').filterBy('typeOfT','income')
   }),
@@ -60,40 +53,27 @@ export default Controller.extend({
     });
   }),
 
-  // now map all of this month's expenses by their amounts:
-  currentMonthIncomesAmounts: computed('currentMonthIncomes', function() {
-    return this.get('currentMonthIncomes').mapBy('amount');
+  status: computed('currentMonthIncomes', 'currentMonthExpenses', function(){
+    let incomes = this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
+    let expenses = this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
+    let total = incomes-expenses;
+    let percentage = (total/incomes*100).toFixed(2);
+    return {
+      incomes: incomes,
+      expenses: expenses,
+      total: total,
+      percentage: percentage
+    }
   }),
 
-  // now sum all of the current month's expense amounts:
-  sumOfCurrentMonthIncomes: computed('currentMonthIncomesAmounts', function() {
-    return this.get('currentMonthIncomesAmounts').reduce((a, b) => a + b, 0);
-  }),
-
-  currentMonthTotalLeft: computed('sumOfCurrentMonthIncomes', 'sumOfCurrentMonthExpenses', function(){
-    let incomes = this.get('sumOfCurrentMonthIncomes');
-    let expenses = this.get('sumOfCurrentMonthExpenses');
-    return incomes-expenses;
-  }),
-
-  currentMonthTotalLeftPercentage: computed('sumOfCurrentMonthIncomes', 'sumOfCurrentMonthExpenses', function(){
-    let incomes = this.get('sumOfCurrentMonthIncomes');
-    let total = this.get('currentMonthTotalLeft');
-    return (total/incomes*100).toFixed(2);
-  }),
-
-  expensesSorted: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.amount', function() {
-    return this.get('currentMonthExpenses').sortBy('amount').reverse()
-  }),
-
-  topSpendings: computed('expensesSorted',function(){
+  topSpendings: computed('currentMonthExpenses', function(){
     return [
-      this.get('expensesSorted').filterBy('category','food').objectAt(0),
-      this.get('expensesSorted').filterBy('category','savings').objectAt(0),
-      this.get('expensesSorted').filterBy('category','travel').objectAt(0),
-      // this.get('expensesSorted').filterBy('category','transportation').objectAt(0),
-      // this.get('expensesSorted').filterBy('category','utilities').objectAt(0),
-      // this.get('expensesSorted').filterBy('category','medical').objectAt(0)
+      this.get('currentMonthExpenses').filterBy('category','food').sortBy('amount').reverse().objectAt(0),
+      this.get('currentMonthExpenses').filterBy('category','savings').sortBy('amount').reverse().objectAt(0),
+      this.get('currentMonthExpenses').filterBy('category','travel').sortBy('amount').reverse().objectAt(0),
+      // this.get('currentMonthExpenses').filterBy('category','transportation').sortBy('amount').reverse().objectAt(0),
+      // this.get('currentMonthExpenses').filterBy('category','utilities').sortBy('amount').reverse().objectAt(0),
+      // this.get('currentMonthExpenses').filterBy('category','medical').sortBy('amount').reverse().objectAt(0)
     ]
   }),
 
@@ -116,7 +96,7 @@ export default Controller.extend({
     return newExpense.save()
   }),
 
-  expensesChart: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', 'expData', function() {
+  expensesChart: computed('currentMonthExpenses.length', 'currentMonthExpenses.@each.category', function() {
     return {
       datasets: [
         {
@@ -147,7 +127,6 @@ export default Controller.extend({
           borderWidth: 1
         }
       ],
-      // These labels appear in the legend and in the tooltips when hovering different arcs
       labels: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
     };
   }),

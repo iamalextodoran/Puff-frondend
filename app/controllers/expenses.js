@@ -5,21 +5,21 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  init() {
-    this._super(...arguments);
-    this.get('expensesFetched');
-  },
-  expensesWithFetch: null, 
-  currentMonthExpensesWithFetch: null,
-  expensesFetched: computed(async function() {
-    return fetch('transactions/all_expenses')
-      .then((response) => {
-        return response.json();
-      }).then(item => {
-        this.set('expensesWithFetch', item.allExpenses);
-        return item.allExpenses;
-      });
-  }),
+  // init() {
+  //   this._super(...arguments);
+  //   this.get('expensesFetched');
+  // },
+  // expensesWithFetch: null, 
+  // currentMonthExpensesWithFetch: null,
+  // expensesFetched: computed(async function() {
+  //   return fetch('transactions/all_expenses')
+  //     .then((response) => {
+  //       return response.json();
+  //     }).then(item => {
+  //       this.set('expensesWithFetch', item.allExpenses);
+  //       return item.allExpenses;
+  //     });
+  // }),
 
   categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
   
@@ -46,10 +46,9 @@ export default Controller.extend({
     });
   }),
 
-  // now map all of this month's expenses by their amounts:
-  sumOfCurrentMonthExpenses: computed('currentMonthExpenses', function() {
-    return this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
-  }),
+  // sumOfCurrentMonthExpenses: computed('currentMonthExpenses', function() {
+  //   return this.get('currentMonthExpenses').mapBy('amount').reduce((a, b) => a + b, 0);
+  // }),
 
   createExpense: computed(function() {
     var name = this.get('name');

@@ -34,7 +34,7 @@ export default Controller.extend({
   //   return this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
   // }),
 
-  incomesTotal: computed('incomes', function() {
+  incomesTotal: computed('currentMonthIncomes', function() {
     let a = this.get('currentMonthIncomes').filterBy('category', 'work').mapBy('amount').reduce((a, b) => a + b, 0),
         b = this.get('currentMonthIncomes').filterBy('category', 'scolarship').mapBy('amount').reduce((a, b) => a + b, 0),
         c = this.get('currentMonthIncomes').filterBy('category', 'freelance').mapBy('amount').reduce((a, b) => a + b, 0),

@@ -4,10 +4,10 @@
     <div class="layout-row  layout-align-space-between-start container">
       <div>
         <h1 style="font-weight:lighter">Hey, <span style="font-weight:bold">{{selectedUser.fullName}}</span></h1>
-        <p>{{if this.isBad "Ohh shit" "Keep it up"}}. You've got <b>{{currentMonthTotalLeftPercentage}} % </b>available</p>
+        <p>{{if this.isBad "Ohh shit" "Keep it up"}}. You've got <b>{{status.percentage}} % </b>available</p>
       </div>
       <div>
-        <h1 class={{if this.isBad "red" "green"}}>{{currentMonthTotalLeft}} lei</h1>
+        <h1 class={{if this.isBad "red" "green"}}>{{status.total}} lei</h1>
         <p align="right">available</p>
       </div>
     </div>
@@ -52,23 +52,21 @@
     <div class="card small">
       <h3>Top spendings</h3>
       <p>Stop it!</p>
+      <div class="flex">
+        {{!-- <div class="layout-row layout-align-space-around-center">
 
-      <div class="layout-row flex">
-        <div class="flex layout-row layout-align-space-between-center">
-
-          {{!-- {{#each topSpendings as |entry|}}
-            {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" entry)}}
-              {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
+          {{#each topSpendings as |entry|}}
+            {{#paper-item class="md-3-line" onClick=(action "showExpenseDetails" entry)}}
+              {{paper-icon "restaurant" class="md-avatar-icon"}}
               <div class="md-list-item-text">
-                <h3 style="font-weight: bolder;">{{entry.category}}</h3>
-                <h3>{{entry.name}}</h3>
+                <h3 style="font-weight: bold;">{{entry.category}}</h3>
+                <h4>{{entry.name}}</h4>
                 <p>{{entry.amount}}</p>
               </div>
             {{/paper-item}}
-          {{/each}} --}}
+          {{/each}}
 
-        </div>
-
+        </div> --}}
       </div>
     </div>
 
