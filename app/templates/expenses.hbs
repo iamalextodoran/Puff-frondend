@@ -17,7 +17,7 @@
 
         </div>
         <div>
-          <h1 class="red">{{selectedUser.totalExpenses}} lei</h1>
+          <h1 class="red">{{selectedUser.totalExpenses.total}} lei</h1>
           <p align="right">spent</p>
         </div>
       </div>
@@ -25,44 +25,44 @@
     </div>
     
     <div class="flex card">
-    <h3>All time history</h3>
-    <p>Watch your mistakes</p>
-    {{#each expenses as |expense|}}
-      {{#paper-item class="md-3-line"}}
-        {{paper-icon "trending_down"}}
-        <div class="md-list-item-text">
-          <h3>{{expense.name}}</h3>
-          <p>{{expense.amount}} lei</p>
-          <p>{{expense.description}}</p>
-          <p>{{moment-format expense.date "DD/MM/YYYY"}}</p>
-        </div>
-        <div align="right" class="md-list-item-text">
+      <h3>All time history</h3>
+      <p>Watch your mistakes</p>
+      {{#each expenses as |expense|}}
+        {{#paper-item class="md-3-line"}}
+          {{paper-icon "trending_down"}}
+          <div class="md-list-item-text">
+            <h3>{{expense.name}}</h3>
+            <p>{{expense.amount}} lei</p>
+            {{!-- <p>{{expense.description}}</p> --}}
+            <p>{{moment-format expense.date "DD/MM/YYYY"}}</p>
+          </div>
+          <div align="right" class="md-list-item-text">
 
-          {{#paper-menu as |menu|}}
-            {{#menu.trigger}}
-              {{#paper-button onClick=null iconButton=true}}
-                {{paper-icon "more_vert" class="md-menu-origin"}}
-              {{/paper-button}}
-            {{/menu.trigger}}
+            {{#paper-menu as |menu|}}
+              {{#menu.trigger}}
+                {{#paper-button onClick=null iconButton=true}}
+                  {{paper-icon "more_vert" class="md-menu-origin"}}
+                {{/paper-button}}
+              {{/menu.trigger}}
 
-            {{#menu.content width=2 as |content|}}
-              {{#content.menu-item onClick=(action "showEditDialogAction" expense)}}
-                {{paper-icon "edit" class="md-menu-origin"}}
-                <span class="md-menu-align-target">Edit</span> {{item}}
-              {{/content.menu-item}}
+              {{#menu.content width=2 as |content|}}
+                {{#content.menu-item onClick=(action "showEditDialogAction" expense)}}
+                  {{paper-icon "edit" class="md-menu-origin"}}
+                  <span class="md-menu-align-target">Edit</span> {{item}}
+                {{/content.menu-item}}
 
-              {{#content.menu-item onClick=(action "showDeleteDialogAction" expense)}}
-                {{paper-icon "delete" class="md-menu-origin"}}
-                <span class="md-menu-align-target">Delete</span> {{item}}
-              {{/content.menu-item}}
-            {{/menu.content}}
-          {{/paper-menu}}
-          
-        </div>
-      {{/paper-item}}
-    {{/each}}
+                {{#content.menu-item onClick=(action "showDeleteDialogAction" expense)}}
+                  {{paper-icon "delete" class="md-menu-origin"}}
+                  <span class="md-menu-align-target">Delete</span> {{item}}
+                {{/content.menu-item}}
+              {{/menu.content}}
+            {{/paper-menu}}
+            
+          </div>
+        {{/paper-item}}
+      {{/each}}
+    </div>
 
-  </div>
   </div>
   <div class="flex">
     <div class="card small">

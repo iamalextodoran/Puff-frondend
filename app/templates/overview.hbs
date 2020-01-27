@@ -4,7 +4,7 @@
     <div class="layout-row  layout-align-space-between-start container">
       <div>
         <h1 style="font-weight:lighter">Hey, <span style="font-weight:bold">{{selectedUser.fullName}}</span></h1>
-        <p>{{if this.isBad "Ohh shit" "Keep it up"}}. You've got <b>{{status.percentage}} % </b>available</p>
+        <p>{{if this.isBad "Ohh shit" "Keep it up"}}. You've got <b>{{status.percentage}} % </b>left</p>
       </div>
       <div>
         <h1 class={{if this.isBad "red" "green"}}>{{status.total}} lei</h1>
@@ -37,14 +37,14 @@
       </div>
       <div align="center">
         <p>Vacation</p>
-        {{ember-progress-bar progress=savedMoney.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalExpenses.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
-        <p>Emergency</p>
-        {{ember-progress-bar progress=savedMoney.saving options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        <p>Just savings</p>
+        {{ember-progress-bar progress=selectedUser.totalExpenses.savings options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="right">
-        <h1 class="accentHeading">{{savedMoney.total}} lei</h1>
+        <h1 class="accentHeading">{{selectedUser.totalExpenses.total}} lei</h1>
         <p>total</p>
       </div>
     </div>

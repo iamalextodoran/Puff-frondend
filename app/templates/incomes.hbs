@@ -12,19 +12,19 @@
       <p>Income sources</p>
       <div align="center">
         <p>Work</p>
-        {{ember-progress-bar progress=incomesTotal.work options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalIncomes.work options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Freelance</p>
-        {{ember-progress-bar progress=incomesTotal.freelance options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalIncomes.freelance options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Scolarship</p>
-        {{ember-progress-bar progress=incomesTotal.scolarship options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalIncomes.scolarship options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
       </div>
       <div align="right">
         {{!-- <h1 class="accentHeading">{{incomesTotal.total}} lei</h1> --}}
-        <h1 class="accentHeading">{{selectedUser.totalIncomes}} lei</h1>
+        <h1 class="accentHeading">{{selectedUser.totalIncomes.total}} lei</h1>
         <p>this month</p>
       </div>
     </div>

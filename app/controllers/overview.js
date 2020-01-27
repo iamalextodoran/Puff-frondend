@@ -132,18 +132,16 @@ export default Controller.extend({
   }),
 
   savedMoney: computed('expenses', function() {
-    let a = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0),
-        b = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0),
-        c = a+b;
+    let savings = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0),
+        travel = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0),
+        total = savings+travel;
     return {
-      saving: a/c,
-      travel: b/c,
-      total: c
+      saving: savings/total,
+      travel: travel/total,
+      total: total
     }
   }),
-  currentTopExpense: computed(function() {
-    return this.get('foodSorted')
-  }),
+  currentTopExpense: null,
 
   actions: {
     showExpenseDetails: function(item) {
