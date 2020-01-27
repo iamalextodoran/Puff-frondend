@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 /* eslint-disable ember/use-brace-expansion */
 import Controller from '@ember/controller';
@@ -16,6 +17,9 @@ export default Controller.extend({
     submit: function() {
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.save();
+        darkmode = new Darkmode(),
+        
+        darkmode.showWidget();
       });
       
       location.reload();

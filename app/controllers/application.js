@@ -20,9 +20,9 @@ export default Controller.extend({
 
     this.get('store').findRecord('user', 42).then(item => {
       if (item.darkMode) {
-        document.body.classList.add("darkMode");
+        // document.body.classList.add("darkMode");
       } else {
-        document.body.classList.remove("darkMode");
+        // document.body.classList.remove("darkMode");
       }
     });
   },

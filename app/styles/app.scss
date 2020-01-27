@@ -130,3 +130,26 @@ footer {
     margin-top: 0px;
   }
 }
+
+
+
+
+
+.darkmode--activated p, .darkmode--activated li {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.darkmode--activated h3 h1, .darkmode--activated li {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.button {
+  isolation: isolate;
+}
+
+.darkmode--activated .logo{
+  mix-blend-mode: difference;
+}
+.darkmode-layer, .darkmode-toggle {
+  z-index: 500;
+}
