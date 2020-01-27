@@ -52,19 +52,63 @@
     <div class="card small">
       <h3>Top spendings</h3>
       <p>Stop it!</p>
-      <div class="flex">
-        <div class="layout-row layout-align-space-around-center">
+      <div class="layout-row flex">
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.food)}}
+            {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h4 style="font-weight: bold;">{{topSpendings.food.category}}</h4>
+              <h4>{{topSpendings.food.name}}</h4>
+              <p>{{topSpendings.food.amount}}</p>
+            </div>
+          {{/paper-item}}
 
-          {{#each topSpendings as |entry|}}
-            {{#paper-item class="md-3-line" onClick=(action "showExpenseDetails" entry)}}
-              {{paper-icon "restaurant" class="md-avatar-icon"}}
-              <div class="md-list-item-text">
-                <h3 style="font-weight: bold;">{{entry.category}}</h3>
-                <h4>{{entry.name}}</h4>
-                <p>{{entry.amount}}</p>
-              </div>
-            {{/paper-item}}
-          {{/each}}
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.transportation)}}
+            {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{topSpendings.transportation.category}}</h3>
+              <h4>{{topSpendings.transportation.name}}</h4>
+              <p>{{topSpendings.transportation.amount}}</p>
+            </div>
+          {{/paper-item}}
+        </div>
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.travel)}}
+            {{paper-icon "flight" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{topSpendings.travel.category}}</h3>
+              <h4>{{topSpendings.travel.name}}</h4>
+              <p>{{topSpendings.travel.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.savings)}}
+            {{paper-icon "payment" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{topSpendings.savings.category}}</h3>
+              <h4>{{topSpendings.savings.name}}</h4>
+              <p>{{topSpendings.savings.amount}}</p>
+            </div>
+          {{/paper-item}}
+
+        </div>
+        <div class="flex">
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.utilities)}}
+            {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{topSpendings.utilities.category}}</h3>
+              <h4>{{topSpendings.utilities.name}}</h4>
+              <p>{{topSpendings.utilities.amount}}</p>
+            </div>
+          {{/paper-item}}
+          {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.medical)}}
+            {{paper-icon "eco" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text">
+              <h3>{{topSpendings.medical.category}}</h3>
+              <h4>{{topSpendings.medical.name}}</h4>
+              <p>{{topSpendings.medical.amount}}</p>
+            </div>
+          {{/paper-item}}
 
         </div>
       </div>

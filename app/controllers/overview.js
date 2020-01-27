@@ -66,14 +66,14 @@ export default Controller.extend({
   }),
 
   topSpendings: computed('currentMonthExpenses', function(){
-    return [
-      this.get('currentMonthExpenses').filterBy('category','food').sortBy('amount').reverse().objectAt(0),
-      this.get('currentMonthExpenses').filterBy('category','savings').sortBy('amount').reverse().objectAt(0),
-      this.get('currentMonthExpenses').filterBy('category','travel').sortBy('amount').reverse().objectAt(0),
-      // this.get('currentMonthExpenses').filterBy('category','transportation').sortBy('amount').reverse().objectAt(0),
-      // this.get('currentMonthExpenses').filterBy('category','utilities').sortBy('amount').reverse().objectAt(0),
-      // this.get('currentMonthExpenses').filterBy('category','medical').sortBy('amount').reverse().objectAt(0)
-    ]
+    return {
+      food: this.get('currentMonthExpenses').filterBy('category','food').sortBy('amount').reverse().objectAt(0),
+      savings: this.get('currentMonthExpenses').filterBy('category','savings').sortBy('amount').reverse().objectAt(0),
+      travel: this.get('currentMonthExpenses').filterBy('category','travel').sortBy('amount').reverse().objectAt(0),
+      transportation: this.get('currentMonthExpenses').filterBy('category','transportation').sortBy('amount').reverse().objectAt(0),
+      utilities: this.get('currentMonthExpenses').filterBy('category','utilities').sortBy('amount').reverse().objectAt(0),
+      medical: this.get('currentMonthExpenses').filterBy('category','medical').sortBy('amount').reverse().objectAt(0)
+    }
   }),
 
   createExpense: computed(function() {
