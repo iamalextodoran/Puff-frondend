@@ -7,10 +7,6 @@ export default Controller.extend({
     return this.get('store').findAll('user');
   }),
 
-  // selectedUser: computed(function() {
-  //   return this.get('store').findAll('currentuser');
-  // }),
-
   selectedUser: computed('users.length', function() {
     return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
@@ -41,7 +37,7 @@ export default Controller.extend({
       document.body.classList.toggle("darkMode");
 
       let check = document.getElementById('logo').src;
-      if(check.indexOf("logo-white.png" != -1)) {
+      if(check.indexOf('logo-white.png') != -1) {
         document.getElementById('logo').src = 'assets/images/logo-white.png'
       } else {
         document.getElementById('logo').src = 'assets/images/logo-black.png'
