@@ -129,7 +129,7 @@ export default Controller.extend({
       labels: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
     };
   }),
-
+  
   savedMoney: computed('expenses', function() {
     let savings = this.get('expenses').filterBy('category', 'savings').mapBy('amount').reduce((a, b) => a + b, 0),
         travel = this.get('expenses').filterBy('category', 'travel').mapBy('amount').reduce((a, b) => a + b, 0),

@@ -17,9 +17,6 @@ export default Controller.extend({
     submit: function() {
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.save();
-        darkmode = new Darkmode(),
-        
-        darkmode.showWidget();
       });
       
       location.reload();

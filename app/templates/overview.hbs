@@ -56,18 +56,18 @@
         <div class="flex">
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.food)}}
             {{paper-icon "restaurant" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h4 style="font-weight: bold;">{{topSpendings.food.category}}</h4>
-              <h4>{{topSpendings.food.name}}</h4>
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.food.category}}</h4>
+              <h4>{{capitalize topSpendings.food.name}}</h4>
               <p>{{topSpendings.food.amount}}</p>
             </div>
           {{/paper-item}}
 
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.transportation)}}
             {{paper-icon "directions_car" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{topSpendings.transportation.category}}</h3>
-              <h4>{{topSpendings.transportation.name}}</h4>
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.transportation.category}}</h4>
+              <h4>{{capitalize topSpendings.transportation.name}}</h4>
               <p>{{topSpendings.transportation.amount}}</p>
             </div>
           {{/paper-item}}
@@ -75,18 +75,18 @@
         <div class="flex">
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.travel)}}
             {{paper-icon "flight" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{topSpendings.travel.category}}</h3>
-              <h4>{{topSpendings.travel.name}}</h4>
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.travel.category}}</h4>
+              <h4>{{capitalize topSpendings.travel.name}}</h4>
               <p>{{topSpendings.travel.amount}}</p>
             </div>
           {{/paper-item}}
 
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.savings)}}
             {{paper-icon "payment" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{topSpendings.savings.category}}</h3>
-              <h4>{{topSpendings.savings.name}}</h4>
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.savings.category}}</h4>
+              <h4>{{capitalize topSpendings.savings.name}}</h4>
               <p>{{topSpendings.savings.amount}}</p>
             </div>
           {{/paper-item}}
@@ -94,18 +94,18 @@
         </div>
         <div class="flex">
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.utilities)}}
-            {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{topSpendings.utilities.category}}</h3>
-              <h4>{{topSpendings.utilities.name}}</h4>
+            {{paper-icon "eco" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.utilities.category}}</h4>
+              <h4>{{capitalize topSpendings.utilities.name}}</h4>
               <p>{{topSpendings.utilities.amount}}</p>
             </div>
           {{/paper-item}}
           {{#paper-item class="md-2-line" onClick=(action "showExpenseDetails" topSpendings.medical)}}
-            {{paper-icon "eco" size=30 class="md-avatar-icon"}}
-            <div class="md-list-item-text">
-              <h3>{{topSpendings.medical.category}}</h3>
-              <h4>{{topSpendings.medical.name}}</h4>
+            {{paper-icon "local_hospital" size=30 class="md-avatar-icon"}}
+            <div class="md-list-item-text puff">
+              <h4>{{capitalize topSpendings.medical.category}}</h4>
+              <h4>{{capitalize topSpendings.medical.name}}</h4>
               <p>{{topSpendings.medical.amount}}</p>
             </div>
           {{/paper-item}}

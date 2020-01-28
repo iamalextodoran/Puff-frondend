@@ -15,6 +15,12 @@ h3 {
   color: rgba(0, 0, 0, 0.9);
 }
 
+h4 {
+  font-size: 20px;
+  line-height: 50%;
+  color: rgba(0, 0, 0, 0.9);
+}
+
 p {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
@@ -86,9 +92,11 @@ footer {
   color: rgba(255, 255, 255, 0.9);
   h1 {
     color: rgba(255, 255, 255, 0.9);
-    line-height: 75%;
   }
   h3 {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  h4 {
     color: rgba(255, 255, 255, 0.9);
   }
   p {
@@ -101,7 +109,26 @@ footer {
   md-icon.md-default-theme {
     color: rgba(255, 255, 255, 0.6);
   }
+  a {
+    color: rgba(255, 255, 255, 0.9);
+  }
   
+  .md-input-container md-has-value{
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .md-input-container .hint {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .md-input ng-invalid{
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .md-input {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .md-default-theme {
+    color: white;
+  }
+
   .green {
     color: green;
   }
@@ -113,11 +140,15 @@ footer {
   .accentHeading {
     color:  purple;
   }
+  paper-button {
+    color: white;
+  }
 }
 @media (max-width: 599px) {
   .small {
     margin-left: 0px;
   }
+
 }
 @media (max-width: 800px) {
   .bigMenu {
@@ -130,26 +161,20 @@ footer {
     margin-top: 0px;
   }
 }
-
-
-
-
-
-.darkmode--activated p, .darkmode--activated li {
-  color: rgba(0, 0, 0, 0.6);
+@media (max-width: 1300px) {
+  .puff {
+    display: none;
+  }
 }
 
-.darkmode--activated h3 h1, .darkmode--activated li {
-  color: rgba(0, 0, 0, 0.9);
-}
 
-.button {
-  isolation: isolate;
-}
 
-.darkmode--activated .logo{
-  mix-blend-mode: difference;
-}
-.darkmode-layer, .darkmode-toggle {
-  z-index: 500;
+
+
+.float{
+	position:fixed;
+	width:40px;
+	height:40px;
+	bottom:40px;
+	right:40px;
 }

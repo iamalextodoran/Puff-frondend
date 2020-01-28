@@ -36,5 +36,16 @@ export default Controller.extend({
       
       location.reload(); //refresh page
     },
+
+    darking: function() {
+      document.body.classList.toggle("darkMode");
+
+      let check = document.getElementById('logo').src;
+      if(check.indexOf("logo-white.png" != -1)) {
+        document.getElementById('logo').src = 'assets/images/logo-white.png'
+      } else {
+        document.getElementById('logo').src = 'assets/images/logo-black.png'
+      }
+    }
   }
 });
