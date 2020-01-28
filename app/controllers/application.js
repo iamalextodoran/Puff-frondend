@@ -3,14 +3,6 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  users: computed(function() {
-    return this.get('store').findAll('user');
-  }),
-
-  selectedUser: computed('users.length', function() {
-    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
-  }),
-
   init(){  
     this._super(...arguments);
 
@@ -22,6 +14,14 @@ export default Controller.extend({
       }
     });
   },
+
+  users: computed(function() {
+    return this.get('store').findAll('user');
+  }),
+
+  selectedUser: computed('users.length', function() {
+    return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
+  }),
 
   actions: {
     changeUser: function(user) {
