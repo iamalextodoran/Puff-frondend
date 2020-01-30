@@ -38,6 +38,28 @@
 
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/puff-ember.js"></script>
+    <!-- //darkmode using localStorage -->
+    <script>
+    
+    let darkMode = localStorage.getItem('darkMode'); 
+
+    const enableDarkMode = () => {
+      document.body.classList.add('darkMode');
+      localStorage.setItem('darkMode', 'enabled');
+      document.getElementById('thisGuy').src = 'assets/images/logo-white.png'
+    }
+
+    const disableDarkMode = () => {
+      document.body.classList.remove('darkMode');
+      localStorage.setItem('darkMode', null);
+      document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
+    }
+
+    if (darkMode === 'enabled') {
+      enableDarkMode();
+    }
+
+    </script>
 
     {{content-for "body-footer"}}
   </body>

@@ -34,36 +34,24 @@ export default Controller.extend({
     },
 
     darking: function() {
+      let darkMode = localStorage.getItem('darkMode'); 
       const enableDarkMode = () => {
-        document.body.classList.add("darkMode");
-        window.localStorage.setItem('darkMode', true);
-        document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
-      };
-
-      const disableDarkMode = () => {
-        document.body.classList.remove("darkMode");
-        window.localStorage.setItem('darkMode', false);
+        document.body.classList.add('darkMode');
+        localStorage.setItem('darkMode', 'enabled');
         document.getElementById('thisGuy').src = 'assets/images/logo-white.png'
-      };
-
-      let state = window.localStorage.getItem('darkMode');
-
-
-      if (state !== true) {
-        enableDarkMode();
-        alert(state);
-      } else {
-        disableDarkMode();
-        alert(state);
       }
-      // document.body.classList.toggle("darkMode");
-      // let check = document.getElementById('thisGuy').src;
-
-      // if(check.indexOf('logo-black.png') != -1) {
-      //   document.getElementById('thisGuy').src = 'assets/images/logo-white.png'
-      // } else {
-      //   document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
-      // }
+      const disableDarkMode = () => {
+        document.body.classList.remove('darkMode');
+        localStorage.setItem('darkMode', null);
+        document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
+      }
+      
+      darkMode = localStorage.getItem('darkMode'); 
+      if (darkMode !== 'enabled') {
+        enableDarkMode();
+      } else {  
+        disableDarkMode(); 
+      }
     }
   }
 });
