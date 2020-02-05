@@ -38,26 +38,29 @@
 
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/puff-ember.js"></script>
-    <!-- //darkmode using localStorage -->
     <script>
     
-    let darkMode = localStorage.getItem('darkMode'); 
+    let darkMode = localStorage.getItem('darkMode');
+    let accentColor = localStorage.getItem('accentColor');
 
     const enableDarkMode = () => {
       document.body.classList.add('darkMode');
       localStorage.setItem('darkMode', 'enabled');
       document.getElementById('thisGuy').src = 'assets/images/logo-white.png'
     }
-
-    const disableDarkMode = () => {
-      document.body.classList.remove('darkMode');
-      localStorage.setItem('darkMode', null);
-      document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
-    }
+    const customColor = () => {
+      document.documentElement.style.setProperty("--bar-color", "red");
+        localStorage.setItem('accentColor', 'enabled');
+      }
 
     if (darkMode === 'enabled') {
       enableDarkMode();
     }
+
+    if (accentColor === 'enabled') {
+      customColor();
+    }
+
 
     </script>
 

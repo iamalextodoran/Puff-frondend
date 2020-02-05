@@ -37,11 +37,11 @@
       </div>
       <div align="center">
         <p>Vacation</p>
-        {{ember-progress-bar progress=selectedUser.totalExpenses.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalExpenses.travel options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="var(--bar-trail-color)" color = "var(--bar-color)" trailWidth= 4)}}
       </div>
       <div align="center">
         <p>Just savings</p>
-        {{ember-progress-bar progress=selectedUser.totalExpenses.savings options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="#BBEEE9" color = "#03DAC5" trailWidth= 4)}}
+        {{ember-progress-bar progress=selectedUser.totalExpenses.savings options=(hash strokeWidth=4 duration=1000  easing="easeOut" trailColor="var(--bar-trail-color)" color = "var(--bar-color)" trailWidth= 4)}}
       </div>
       <div align="right">
         <h1 class="accentHeading">{{selectedUser.totalExpenses.emergency}} lei</h1>

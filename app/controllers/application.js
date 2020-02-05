@@ -45,8 +45,8 @@ export default Controller.extend({
         localStorage.setItem('darkMode', null);
         document.getElementById('thisGuy').src = 'assets/images/logo-black.png'
       }
-      
       darkMode = localStorage.getItem('darkMode'); 
+      
       if (darkMode !== 'enabled') {
         enableDarkMode();
       } else {  

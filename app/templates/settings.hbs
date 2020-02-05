@@ -15,7 +15,12 @@
         {{paper-icon "brightness-2"}}
         <p>Darkmode</p>
         <div class="md-secondary-container">
-          {{#paper-switch value=selectedUser.darkMode onChange=(action (mut selectedUser.darkMode))}}{{/paper-switch}}
+          {{!-- {{#paper-switch value=selectedUser.darkMode onChange=(action (mut selectedUser.darkMode))}}{{/paper-switch}} --}}
+          {{color-picker
+            value=value
+            default="#e04e39"
+            format="hexa"
+          }}
         </div>
       {{/paper-item}}
 

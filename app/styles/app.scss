@@ -3,6 +3,11 @@ $accent: "purple";
 $warn: "pink";
 
 @import 'ember-paper';
+:root {
+  --bar-trail-color: #BBEEE9;
+  --bar-color: #03DAC5;
+  --accent-color: purple;
+}
 h1 {
   font-size: 24px;
   color: rgba(0, 0, 0, 0.9);
@@ -36,7 +41,7 @@ p {
 }
 
 .accentHeading {
-  color:  purple;
+  color:  var(--accent-color);
 }
 
 html {
