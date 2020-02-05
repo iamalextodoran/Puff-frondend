@@ -5,6 +5,28 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
+  init() {
+    this._super(...arguments);
+    this.components = {
+      palette: false,  // Will be overwritten with true if preview, opacity or hue are true
+      preview: true,
+      opacity: false,
+      hue: true,
+
+      interaction: {
+        hex: false,
+        rgba: false,
+        hsva: false,
+        input: true,
+        save: true,
+        clear: false,
+      }
+    };
+  },
+
+  color: localStorage.getItem('color'),
+  trail: localStorage.getItem('trail'),
+
   users: computed(function() {
     return this.get('store').peekAll('user');
   }),
@@ -18,26 +40,21 @@ export default Controller.extend({
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.save();
       });
-      // document.documentElement.style.setProperty("--bar-color", "#03DAC5");
-
-      let accentColor = localStorage.getItem('accentColor'); 
-      const customColor = () => {
-        document.documentElement.style.setProperty("--bar-color", "red");
-        localStorage.setItem('accentColor', 'enabled');
-      }
-      const defaultColor = () => {
-        document.documentElement.style.setProperty("--bar-color", "#03DAC5");
-        localStorage.setItem('accentColor', null);
-      }
-      accentColor = localStorage.getItem('darkMode'); 
-      
-      if (accentColor !== 'enabled') {
-        customColor();
-      } else {  
-        defaultColor(); 
-      }
 
       location.reload();
     },
+
+    colorOnChange(hsva) {
+      document.documentElement.style.setProperty("--bar-color", hsva.toHEXA().toString());
+      // this.set('color', hsva.toHEXA().toString());
+      localStorage.setItem('color', hsva.toHEXA().toString());
+    },
+
+    trailOnChange(hsva) {
+      document.documentElement.style.setProperty("--bar-trail-color", hsva.toHEXA().toString());
+      // this.set('color', hsva.toHEXA().toString());
+      localStorage.setItem('trail', hsva.toHEXA().toString());
+    }
+
   }
 });

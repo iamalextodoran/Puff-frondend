@@ -12,15 +12,22 @@
       <h3>Theme</h3>
 
       {{#paper-item}}
-        {{paper-icon "brightness-2"}}
-        <p>Darkmode</p>
+        {{paper-icon "color_lens"}}
+        {{!-- {{paper-icon "colorize"}} --}}
+        <p>Bar color</p>
         <div class="md-secondary-container">
-          {{!-- {{#paper-switch value=selectedUser.darkMode onChange=(action (mut selectedUser.darkMode))}}{{/paper-switch}} --}}
-          {{color-picker
-            value=value
-            default="#e04e39"
-            format="hexa"
-          }}
+          {{color-picker value=trail default="#BBEEE9" format="hexa" components=components onChange=(action "trailOnChange")}}
+          {{color-picker value=color default="#03DAC5" format="hexa" components=components onChange=(action "colorOnChange")}}
+        </div>
+      {{/paper-item}}
+
+      <h3>User settings</h3>
+
+      {{#paper-item}}
+        {{paper-icon "face"}}
+        <p>User picture</p>
+        <div class="layout layout-sm-column">
+          {{paper-input type="text" placeholder="enter link" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
         </div>
       {{/paper-item}}
 
@@ -28,13 +35,12 @@
         {{paper-icon "call-split"}}
         <p>Red flag</p>
         <div class="flex layout layout-align-center-center slider-container">
-          <p>V</p>
           {{paper-slider class="flex" min=0 max=5000 value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}
           {{paper-input type="number" value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}   
         </div>
       {{/paper-item}}
       <div align="right">
-        {{#paper-button raised=true primary=true onClick=(action "submit")}}Rember{{/paper-button}}
+        {{#paper-button raised=true primary=true onClick=(action "submit")}}Remember{{/paper-button}}
       </div>
 
     </div>

@@ -117,16 +117,23 @@ footer {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: purple;
+  background: var(--accent-color);
 }
 
 .darkMode {
-  background-color: #2c2c2c;
+  background-color: #212121;
   color: rgba(255, 255, 255, 0.9);
   md-dialog {
-    background-color: #2c2c2c;
+    background-color: #212121;
   }
   placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .pcr-app {
+    background-color: #212121;
+  }
+  .pcr-app .pcr-interaction .pcr-result {
+    background-color: #4a4a4a;
     color: rgba(255, 255, 255, 0.6);
   }
   label, md-input-selected {
@@ -143,11 +150,11 @@ footer {
     color: rgba(255, 255, 255, 0.6);
   }
   md-menu-content {
-    background-color: #2c2c2c;
+    background-color: #212121;
   }
   md-select-menu md-content {
     color: rgba(255, 255, 255, 0.6);
-    background-color: #2c2c2c;
+    background-color: #212121;
   }
   md-option .md-text {
     color: rgba(255, 255, 255, 0.6);
@@ -165,7 +172,7 @@ footer {
     color: rgba(255, 255, 255, 0.6);
   }
   .card {
-    background-color: #3F3F3F;
+    background-color: #2b2b2b;
   }
   
   md-icon.md-default-theme {
@@ -200,7 +207,7 @@ footer {
   }
 
   .accentHeading {
-    color:  purple;
+    color:  var(--accent-color);
   }
   paper-button {
     color: rgba(255, 255, 255, 0.9);
