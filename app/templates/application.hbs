@@ -66,6 +66,10 @@
                     <span>{{user.fullName}}</span>
                   {{/content.menu-item}}
                 {{/each}}
+                {{#content.menu-item onClick=(action "showCreateUserDialog")}}
+                  {{paper-icon "face"}}
+                  <span>Create user</span>
+                {{/content.menu-item}}
               {{/menu.content}}
             {{/paper-menu}}
 
