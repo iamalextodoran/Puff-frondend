@@ -48,6 +48,7 @@
         {{paper-icon "face"}}
         <p>Picture</p>
         <div class="md-secondary-container">
+          <img src="{{selectedUser.picture}}" width=300px height=300px alt="{{selectedUser.fullName}}">
           {{paper-input type="text" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
         </div>
       {{/paper-item}}
