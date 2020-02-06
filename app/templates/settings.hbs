@@ -37,10 +37,18 @@
       <h3>User settings</h3>
 
       {{#paper-item}}
-        {{paper-icon "face"}}
-        <p>User picture</p>
+        {{paper-icon "text_fields"}}
+        <p>Full name</p>
         <div class="md-secondary-container">
-          {{paper-input type="text" placeholder="enter link" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
+          {{paper-input type="text" value=selectedUser.fullName onChange=(action (mut selectedUser.fullName))}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item}}
+        {{paper-icon "face"}}
+        <p>Picture</p>
+        <div class="md-secondary-container">
+          {{paper-input type="text" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
         </div>
       {{/paper-item}}
 
@@ -52,9 +60,11 @@
           {{paper-input type="number" value=selectedUser.danger onChange=(action (mut selectedUser.danger))}}   
         </div>
       {{/paper-item}}
+
       <div align="right">
         {{#paper-button raised=true primary=true onClick=(action "submit")}}Remember{{/paper-button}}
       </div>
+
     </div>
   </div>
 </div>
