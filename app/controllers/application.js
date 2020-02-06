@@ -25,12 +25,32 @@ export default Controller.extend({
 
   actions: {
     changeUser: function(user) {
-      let now = new Date()
+      let now = new Date();
       this.set('currentUser', user);
       this.set('currentUser.selectedAt', now);
       this.get('currentUser').save();
       
       location.reload(); //refresh page
+    },
+    showCreateUserDialog: function() {
+      this.set('showCreateUser', true);
+    },
+
+    createUser: function() {
+      let now = new Date();
+
+      this.store.createRecord('user', {
+        fullName: this.get('fullName'),
+        danger: this.get('danger'),
+        picture: this.get('picture'),
+        selectedAt: now,
+      }).save();
+
+      this.set('showCreateUser', false);
+    },
+
+    closeDialog: function() {
+      this.set('showCreateUser', false);
     },
 
     darking: function() {

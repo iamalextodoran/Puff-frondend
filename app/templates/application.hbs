@@ -30,6 +30,10 @@
                   <span>{{user.fullName}}</span>
                 {{/content.menu-item}}
               {{/each}}
+              {{#content.menu-item onClick=(action "showCreateUserDialog")}}
+                {{paper-icon "face"}}
+                <span>Create user</span>
+              {{/content.menu-item}}
             {{/menu.content}}
           {{/paper-menu}}
         </div>
@@ -76,6 +80,56 @@
       {{paper-icon "nights_stay"}}
     {{/paper-button}}
 
+
+    {{#if showCreateUser}}
+      {{#paper-dialog class="flex-77" onClose=(action "closeDialog" "cancel") origin=dialogOrigin clickOutsideToClose=true}}
+        {{#paper-toolbar}}
+          {{#paper-toolbar-tools}}
+            <h2>Create a new user</h2>
+            <span class="flex"></span>
+            {{#paper-button iconButton=true onClick=(action "closeDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+          {{/paper-toolbar-tools}}
+        {{/paper-toolbar}}
+
+        {{#paper-dialog-content}}
+          <div class="layout layout-sm-column">
+            {{paper-input 
+              label="Full name" 
+              value=fullName
+              required=true
+              errorMessages=(hash
+                required="Full name is required"
+              ) 
+              onChange=(action (mut fullName))}}
+
+            {{paper-input 
+              label="Picture" 
+              value=picture
+              required=true
+              errorMessages=(hash
+                required="Picture is required"
+              ) 
+              onChange=(action (mut picture))}}
+
+            {{paper-input 
+              label="Danger zone" 
+              type="number" 
+              value=danger 
+              required=true
+              min=1
+              errorMessages=(hash
+                required="Danger zone value is required"
+              ) 
+              onChange=(action (mut danger))}}
+          </div>
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row"}}
+          {{#paper-button onClick=(action "closeDialog" "cancel")}}Cancel{{/paper-button}}
+          {{#paper-button onClick=(action "createUser" "create")}}Create{{/paper-button}}
+        {{/paper-dialog-actions}}
+      {{/paper-dialog}}
+    {{/if}}
 
     {{outlet}}
   </body >
