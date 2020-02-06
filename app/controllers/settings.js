@@ -26,6 +26,7 @@ export default Controller.extend({
 
   color: localStorage.getItem('color'),
   trail: localStorage.getItem('trail'),
+  accent: localStorage.getItem('accent'),
 
   users: computed(function() {
     return this.get('store').peekAll('user');
@@ -54,6 +55,12 @@ export default Controller.extend({
       document.documentElement.style.setProperty("--bar-trail-color", hsva.toHEXA().toString());
       // this.set('color', hsva.toHEXA().toString());
       localStorage.setItem('trail', hsva.toHEXA().toString());
+    },
+
+    accentOnChange(hsva) {
+      document.documentElement.style.setProperty("--accent-color", hsva.toHEXA().toString());
+      // this.set('color', hsva.toHEXA().toString());
+      localStorage.setItem('accent', hsva.toHEXA().toString());
     }
 
   }

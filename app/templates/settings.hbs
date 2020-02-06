@@ -7,13 +7,11 @@
 
 <div class="layout-row layout-xs-column">
   <div class="flex container">
-
     <div class="card">
       <h3>Theme</h3>
 
       {{#paper-item}}
         {{paper-icon "color_lens"}}
-        {{!-- {{paper-icon "colorize"}} --}}
         <p>Bar color</p>
         <div class="md-secondary-container">
           {{color-picker value=trail default="#BBEEE9" format="hexa" components=components onChange=(action "trailOnChange")}}
@@ -21,12 +19,27 @@
         </div>
       {{/paper-item}}
 
+      {{#paper-item}}
+        {{paper-icon "colorize"}}
+        <p>Accent color</p>
+        <div class="md-secondary-container">
+          {{color-picker value=accent default="purple" format="hexa" components=components onChange=(action "accentOnChange")}}
+        </div>
+      {{/paper-item}}
+
+    </div>
+  </div>
+</div>
+
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+    <div class="card">
       <h3>User settings</h3>
 
       {{#paper-item}}
         {{paper-icon "face"}}
         <p>User picture</p>
-        <div class="layout layout-sm-column">
+        <div class="md-secondary-container">
           {{paper-input type="text" placeholder="enter link" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
         </div>
       {{/paper-item}}
@@ -42,7 +55,6 @@
       <div align="right">
         {{#paper-button raised=true primary=true onClick=(action "submit")}}Remember{{/paper-button}}
       </div>
-
     </div>
   </div>
 </div>
