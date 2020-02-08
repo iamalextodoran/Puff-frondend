@@ -47,7 +47,7 @@
             {{/paper-button}}
           {{/smallMenu.trigger}}
 
-          {{#smallMenu.content width=2 as |content|}}
+          {{#smallMenu.content width=2}}
             {{#current-route-button route="overview"}}Overview{{/current-route-button}}
             {{#current-route-button route="incomes"}}Incomes{{/current-route-button}}
             {{#current-route-button route="expenses"}}Expenses{{/current-route-button}}
@@ -136,7 +136,7 @@
     {{/if}}
 
     {{outlet}}
-  </body >
+  </body>
 
   <footer>
     <p>Designed by <b class="accentHeading">@Alex</b></p>
