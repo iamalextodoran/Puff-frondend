@@ -15,20 +15,20 @@ export default Controller.extend({
     return this.get('users').sortBy('selectedAt').reverse().objectAt(0);
   }),
 
-  transactions: computed('selectedUser', function() {
-    return this.get('selectedUser.transactions');
-  }),
+  // transactions: computed('selectedUser', function() {
+  //   return this.get('selectedUser.transactions');
+  // }),
 
-  incomes: computed('transactions.length', 'transactions.@each.amount', function() {
-    return this.get('transactions').filterBy('typeOfT','income')
-  }),
+  // incomes: computed('transactions.length', 'transactions.@each.amount', function() {
+  //   return this.get('transactions').filterBy('typeOfT','income')
+  // }),
 
-  // then filter expenses by the current month
-  currentMonthIncomes: computed('incomes', function() {
-    return this.get('incomes').filter(incomes => {
-      return new Date(incomes.get('date')).getMonth() === new Date().getMonth();
-    });
-  }),
+  // // then filter expenses by the current month
+  // currentMonthIncomes: computed('incomes', function() {
+  //   return this.get('incomes').filter(incomes => {
+  //     return new Date(incomes.get('date')).getMonth() === new Date().getMonth();
+  //   });
+  // }),
 
   // sumOfCurrentMonthIncomes: computed('currentMonthIncomes', function() {
   //   return this.get('currentMonthIncomes').mapBy('amount').reduce((a, b) => a + b, 0);
