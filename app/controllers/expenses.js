@@ -5,7 +5,7 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
 export default Controller.extend({
-  categoryOptions: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+  categoryOptions: ['food', 'savings', 'travel', 'transportation', 'utilities', 'medical'],
   
   users: computed(function() {
     return this.get('store').peekAll('user');
@@ -81,7 +81,7 @@ export default Controller.extend({
         }
       ],
       // These labels appear in the legend and in the tooltips when hovering different arcs
-      labels: ['food', 'travel', 'savings', 'transportation', 'utilities', 'medical'],
+      labels: ['food', 'savings', 'travel', 'transportation', 'utilities', 'medical'],
     };
   }),
 

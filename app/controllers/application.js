@@ -6,13 +6,7 @@ export default Controller.extend({
   init(){  
     this._super(...arguments);
 
-    this.get('store').findRecord('user', 42).then(item => {
-      if (item.darkMode) {
-        // document.body.classList.add("darkMode");
-      } else {
-        // document.body.classList.remove("darkMode");
-      }
-    });
+    this.get('store').findRecord('user', 1);
   },
 
   users: computed(function() {
