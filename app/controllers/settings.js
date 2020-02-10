@@ -45,6 +45,14 @@ export default Controller.extend({
       location.reload();
     },
 
+    closePromptDialog: function() {
+      this.set('showChangePictureDialog', false)
+    },
+
+    openChangePictureDialog: function() {
+      this.set('showChangePictureDialog', true)
+    },
+
     colorOnChange(hsva) {
       document.documentElement.style.setProperty("--bar-color", hsva.toHEXA().toString());
       // this.set('color', hsva.toHEXA().toString());

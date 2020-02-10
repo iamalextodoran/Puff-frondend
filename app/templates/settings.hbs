@@ -8,48 +8,20 @@
 <div class="layout-row layout-xs-column">
   <div class="flex container">
     <div class="card">
-      <h3>Theme</h3>
-
-      {{#paper-item}}
-        {{paper-icon "color_lens"}}
-        <p>Bar color</p>
-        <div class="md-secondary-container">
-          {{color-picker value=trail default="#BBEEE9" format="hexa" components=components onChange=(action "trailOnChange")}}
-          {{color-picker value=color default="#03DAC5" format="hexa" components=components onChange=(action "colorOnChange")}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item}}
-        {{paper-icon "colorize"}}
-        <p>Accent color</p>
-        <div class="md-secondary-container">
-          {{color-picker value=accent default="purple" format="hexa" components=components onChange=(action "accentOnChange")}}
-        </div>
-      {{/paper-item}}
-
-    </div>
-  </div>
-</div>
-
-<div class="layout-row layout-xs-column">
-  <div class="flex container">
-    <div class="card">
       <h3>User settings</h3>
 
       {{#paper-item}}
-        {{paper-icon "text_fields"}}
-        <p>Full name</p>
-        <div class="md-secondary-container">
-          {{paper-input type="text" value=selectedUser.fullName onChange=(action (mut selectedUser.fullName))}}
-        </div>
-      {{/paper-item}}
-
-      {{#paper-item}}
         {{paper-icon "face"}}
-        <p>Picture</p>
-        <div class="md-secondary-container">
-          <img src={{selectedUser.picture}} width="300px" height="300px" alt={{selectedUser.fullName}}>
-          {{paper-input type="text" value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
+        <p>Name and picture</p>
+        <div class="flex md-secondary-container">
+
+          <div class="tooltip">
+            <a {{action "openChangePictureDialog"}}><img src={{selectedUser.picture}} class="user big tooltip" alt={{selectedUser.fullName}}>
+            <span class="tooltiptext">Click to change</span></a>
+          </div>
+
+          {{paper-input class="flex" type="text" value=selectedUser.fullName onChange=(action (mut selectedUser.fullName))}}
+
         </div>
       {{/paper-item}}
 
@@ -69,3 +41,47 @@
     </div>
   </div>
 </div>
+
+<div class="layout-row layout-xs-column">
+  <div class="flex container">
+    <div class="card">
+      <h3>Theme</h3>
+
+      {{#paper-item}}
+        {{paper-icon "color_lens"}}
+        <p>Bar color</p>
+        <div class="md-secondary-container">
+          {{color-picker value=trail default="#BBEEE9" format="hexa" components=components onChange=(action "trailOnChange")}}
+          {{color-picker value=color default="#03DAC5" format="hexa" components=components onChange=(action "colorOnChange")}}
+        </div>
+      {{/paper-item}}
+
+      {{#paper-item}}
+        {{paper-icon "colorize"}}
+        <p>Accent color</p>
+        <div class="md-secondary-container">
+          {{color-picker value=accent default="purple" format="hexa" components=components onChange=(action "accentOnChange")}}
+        </div>
+      {{/paper-item}}
+    </div>
+  </div>
+</div>
+
+
+{{#if showChangePictureDialog}}
+  {{#paper-dialog fullscreen=fullscreen clickOutsideToClose=true onClose=(action "closePromptDialog") openFrom="#paper-dialog-demo" closeTo="#bottom-of-card"}}
+
+    {{#paper-dialog-content}}
+      <h2 class="md-title">Change your profile picture</h2>
+      <p>Enter image source down bellow.</p>
+      <img src={{selectedUser.picture}} class="user" style="width:300px;height:300px" alt={{selectedUser.fullName}}><br>
+      {{paper-input class="flex" type="text" textarea=true block=true value=selectedUser.picture onChange=(action (mut selectedUser.picture))}}
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+      {{#paper-button primary=true onClick=(action "closePromptDialog")}}Okay!{{/paper-button}}
+    {{/paper-dialog-actions}}
+
+  {{/paper-dialog}}
+{{/if}}

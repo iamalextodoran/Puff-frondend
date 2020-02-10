@@ -7,28 +7,34 @@ $warn: "pink";
   --bar-trail-color: #BBEEE9;
   --bar-color: #03DAC5;
   --accent-color: purple;
+  --light-black-theme: rgba(255, 255, 255, 0.6);
+  --bold-black-theme: rgba(255, 255, 255, 0.9);
+  --light-white-theme: rgba(0, 0, 0, 0.6);
+  --bold-white-theme: rgba(0, 0, 0, 0.9);
+  --background-dark-theme: #212121;
 }
+
 h1 {
   font-size: 24px;
-  color: rgba(0, 0, 0, 0.9);
+  color: var(--bold-white-theme);
   line-height: 50%;
 }
 
 h3 {
   font-size: 20px;
   line-height: 50%;
-  color: rgba(0, 0, 0, 0.9);
+  color: var(--bold-white-theme);
 }
 
 h4 {
   font-size: 20px;
   line-height: 50%;
-  color: rgba(0, 0, 0, 0.9);
+  color: var(--bold-white-theme);
 }
 
 p {
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--light-white-theme);
   line-height: 50%;
 }
 .lighter {
@@ -77,12 +83,60 @@ footer {
 }
 
 .user{
+  object-fit: cover;
+  object-position: 50% 0;
+
   border-radius: 50%;
   width: 40px;
   height: 40px;
   margin-top: 10px;
 }
+
+.big {
+  width: 200px;
+  height: 200px;
+  margin-right: 25px;
+  transition: filter 0.5s;
+}
+
+.big:hover {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  transition: visibility 0.5s, opacity 0.5s; 
+  visibility: hidden; 
+  opacity: 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  left: 50px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 .userSmallMenu{
+  object-fit: cover;
+  object-position: 50% 0;
+
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -127,81 +181,81 @@ footer {
 }
 
 .darkMode {
-  background-color: #212121;
-  color: rgba(255, 255, 255, 0.9);
+  background-color: var(--background-dark-theme);
+  color: var(--bold-black-theme);
   md-dialog {
-    background-color: #212121;
+    background-color: var(--background-dark-theme);
   }
   placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   .pcr-app {
-    background-color: #212121;
+    background-color: var(--background-dark-theme);
   }
   .pcr-app .pcr-interaction .pcr-result {
     background-color: #4a4a4a;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   label, md-input-selected {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   md-input-container label.md-required {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   .ember-power-select-placeholder, .ember-power-select-selected-item {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
 
   md-input-container:not(.md-input-focused):not(.md-input-invalid) label.md-required:after {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   md-menu-content {
-    background-color: #212121;
+    background-color: var(--background-dark-theme);
   }
   md-select-menu md-content {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: #212121;
+    color: var(--light-black-theme);
+    background-color: var(--background-dark-theme);
   }
   md-option .md-text {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   h1 {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   h3 {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   h4 {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   p {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   .card {
     background-color: #2b2b2b;
   }
   
   md-icon.md-default-theme {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--light-black-theme);
   }
   a {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   
   .md-input-container md-has-value{
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   .md-input-container .hint {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   .md-input ng-invalid{
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   .md-input {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
   .md-default-theme {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
 
   .green {
@@ -216,7 +270,7 @@ footer {
     color:  var(--accent-color);
   }
   paper-button {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bold-black-theme);
   }
 
 }
