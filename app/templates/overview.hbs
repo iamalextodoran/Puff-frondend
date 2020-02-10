@@ -139,6 +139,13 @@
 
 {{#if showPromptAddExpense}}
   {{#paper-dialog fullscreen=true escapeToClose=true clickOutsideToClose=true onClose=(action "closePromptDialog") origin=dialogOrigin}}
+  
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Create a new expense</h2>
+        <span class="flex"></span>
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
 
     {{#paper-dialog-content escapeToClose=true clickOutsideToClose=true}}
       <div class="layout layout-sm-column">
