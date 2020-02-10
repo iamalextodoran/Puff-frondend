@@ -16,8 +16,10 @@
         <div class="flex md-secondary-container">
 
           <div class="tooltip">
-            <a {{action "openChangePictureDialog"}}><img src={{selectedUser.picture}} class="user big tooltip" alt={{selectedUser.fullName}}>
-            <span class="tooltiptext">Click to change</span></a>
+            <a {{action "openChangePictureDialog"}}>
+              <img src={{selectedUser.picture}} class="user big tooltip" alt={{selectedUser.fullName}}>
+              <span class="tooltiptext">Click to change</span>
+            </a>
           </div>
 
           {{paper-input class="flex" type="text" value=selectedUser.fullName onChange=(action (mut selectedUser.fullName))}}
@@ -51,8 +53,7 @@
         {{paper-icon "color_lens"}}
         <p>Bar color</p>
         <div class="md-secondary-container">
-          {{color-picker value=trail default="#BBEEE9" format="hexa" components=components onChange=(action "trailOnChange")}}
-          {{color-picker value=color default="#03DAC5" format="hexa" components=components onChange=(action "colorOnChange")}}
+          {{color-picker value=color default="#03DAC5" format="rgba" components=components defaultRepresentation=RGBA onChange=(action "colorOnChange")}}
         </div>
       {{/paper-item}}
 
@@ -60,7 +61,7 @@
         {{paper-icon "colorize"}}
         <p>Accent color</p>
         <div class="md-secondary-container">
-          {{color-picker value=accent default="purple" format="hexa" components=components onChange=(action "accentOnChange")}}
+          {{color-picker value=accent default="purple" format="rgba" components=components onChange=(action "accentOnChange")}}
         </div>
       {{/paper-item}}
     </div>

@@ -12,7 +12,7 @@ export default Controller.extend({
       preview: true,
       opacity: false,
       hue: true,
-
+      
       interaction: {
         hex: false,
         rgba: false,
@@ -42,7 +42,6 @@ export default Controller.extend({
         user.save();
       });
       this.set('showSubmitChangesToast', true);
-
     },
 
     closePromptDialog: function() {
@@ -58,21 +57,24 @@ export default Controller.extend({
     },
 
     colorOnChange(hsva) {
-      document.documentElement.style.setProperty("--bar-color", hsva.toHEXA().toString());
-      // this.set('color', hsva.toHEXA().toString());
-      localStorage.setItem('color', hsva.toHEXA().toString());
-    },
+      String.prototype.replaceAt=function(index, replacement) {
+        return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+      }
 
-    trailOnChange(hsva) {
-      document.documentElement.style.setProperty("--bar-trail-color", hsva.toHEXA().toString());
-      // this.set('color', hsva.toHEXA().toString());
-      localStorage.setItem('trail', hsva.toHEXA().toString());
+      let color = hsva.toRGBA().toString();
+      let n = color.length-2;
+      let trailColor = color.replaceAt(n, "0.5)");
+
+      localStorage.setItem('color', color);
+      localStorage.setItem('trail', trailColor);
+
+      document.documentElement.style.setProperty("--bar-color", color);
+      document.documentElement.style.setProperty("--bar-trail-color", trailColor);
     },
 
     accentOnChange(hsva) {
-      document.documentElement.style.setProperty("--accent-color", hsva.toHEXA().toString());
-      // this.set('color', hsva.toHEXA().toString());
-      localStorage.setItem('accent', hsva.toHEXA().toString());
+      document.documentElement.style.setProperty("--accent-color", hsva.toRGBA().toString());
+      localStorage.setItem('accent', hsva.toRGBA().toString());
     }
 
   }
