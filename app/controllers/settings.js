@@ -41,12 +41,16 @@ export default Controller.extend({
       this.store.findRecord('user', this.get('selectedUser.id')).then(function(user) {
         user.save();
       });
+      this.set('showSubmitChangesToast', true);
 
-      location.reload();
     },
 
     closePromptDialog: function() {
       this.set('showChangePictureDialog', false)
+    },
+
+    closeSubmitChangesToast: function() {
+      this.set('showSubmitChangesToast', false)
     },
 
     openChangePictureDialog: function() {

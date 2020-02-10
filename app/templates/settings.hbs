@@ -85,3 +85,10 @@
 
   {{/paper-dialog}}
 {{/if}}
+
+
+{{#if showSubmitChangesToast}}
+  {{#paper-toast duration=3000 capsule=true swipeToClose=swipeToClose onClose=(action "closeSubmitChangesToast") as |toast|}}
+    {{#toast.text}}Succes{{/toast.text}}
+  {{/paper-toast}}
+{{/if}}
