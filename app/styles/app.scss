@@ -76,6 +76,13 @@ html {
 .small {
   margin-left: 25px;
 }
+.click-here {
+  fill: black;
+  width: 100px;
+  position: fixed;
+  bottom: 8px;
+	right: 75px;
+}
 
 footer {
   text-align: center;
@@ -186,6 +193,9 @@ footer {
   md-dialog {
     background-color: var(--background-dark-theme);
   }
+  .click-here {
+    fill: white;
+  }
   placeholder {
     color: var(--light-black-theme);
   }
@@ -283,6 +293,9 @@ footer {
     height:30px;
     bottom:25px;
     right:25px;
+  }
+  .click-here {
+    width: 75px;
   }
 
 }
